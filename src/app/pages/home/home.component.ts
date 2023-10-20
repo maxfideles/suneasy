@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SunService} from 'src/app/services/sun.service';
-import { InverterData, InverterInfo, PanelData} from 'src/app/models/panelData';
-import { delay, map } from 'rxjs';
-import { JsonPipe } from '@angular/common';
+import { PanelData} from 'src/app/models/panelData';
+import { InverterData, InverterInfo } from 'src/app/models/inverterData'
 
 
 @Component({

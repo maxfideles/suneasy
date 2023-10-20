@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import {HttpClient,  HttpHeaders} from '@angular/common/http'
 import { environment } from 'src/environments/environment';
 import { Observable, catchError, map } from 'rxjs';
-import { InverterData, InverterInfo, PanelData, PanelInfo} from '../models/panelData';
+import { PanelData, PanelInfo} from '../models/panelData';
+import { InverterData, InverterInfo} from '../models/inverterData'
 
 @Injectable({
   providedIn: 'root'
