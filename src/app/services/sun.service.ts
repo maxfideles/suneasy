@@ -23,32 +23,6 @@ export class SunService {
   }
 
 
-    // Headers
-    httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    }
-
-  getPanels(): Observable<PanelData[]>{
-    return this.http.get<PanelData[]>(`${this.baseUrl}panels`).pipe(catchError(
-      (err: any, caught: Observable<PanelData[]>) => {
-          console.log(err);
-          return caught;
-      }));;
-     
-  }
-
-  getPanel(panelName:string): Observable<PanelInfo>{
-    return this.http.get<PanelInfo>(`${this.baseUrl}panels/panelManufacturer/${panelName}`)
-    console.log(this.panelData)
-    
-  }
-
-  getManufacturerPanel(manufacturer:string): Observable<PanelData>{
-    this.panelData = this.http.get<PanelData>(`${this.baseUrl}panels/${manufacturer}`)
-
-    return this.panelData
-  }
-
   getInverters(): Observable<InverterData[]>{
     return this.http.get<InverterData[]>(`${this.baseUrl}inverters`).pipe(catchError(
       (err: any, caught: Observable<InverterData[]>) => {

@@ -1,26 +1,10 @@
 
-<div>
-    <ul *ngFor="let a of inverterInfo" style="list-style: none;">
-        <li>{{a.manufacturer}} - {{a.name}}</li>
-        <li>{{a.numberMPPTs}}</li>
-        <li>{{a.gridConnection}}</li>
-        <hr>
-    </ul>
-    <div >
-        <ul *ngFor="let info of panelInfo">
-        <li>{{info.manufacturer}} - {{info.name}}</li>
-        <li>{{info.current}}A</li>
-        <li>{{info.maximumPower}}W</li>
-        <hr>
-        </ul>
-    </div>
-</div>
-    <div class="card-body">
-        <div class="card-body-img">
-        <img src="#" alt="" widht="80px" height="80px">
-        </div>
-    </div>
     <div class="card-stats-type">
+
+        <a href="../inverters/inverters.component.html">inverter</a>
      
+        <app-inverters></app-inverters>
+        <hr>
+        <app-panels></app-panels>
       
     </div>

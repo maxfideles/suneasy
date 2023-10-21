@@ -1,1 +1,10 @@
-<p>inverters works!</p>
+<div>
+    Inverters
+    <ul *ngFor="let a of inverterInfo" style="list-style: none;">
+        <li>{{a.manufacturer}} - {{a.name}}</li>
+        <li>{{a.numberMPPTs}}</li>
+        <li>{{a.gridConnection}}</li>
+        <hr>
+    </ul>
+
+</div>

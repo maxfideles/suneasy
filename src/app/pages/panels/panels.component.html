@@ -1,1 +1,9 @@
-<p>panels works!</p>
+<div >
+    Panels
+    <ul *ngFor="let info of panelInfo">
+    <li>{{info.manufacturer}} - {{info.name}}</li>
+    <li>{{info.current}}A</li>
+    <li>{{info.maximumPower}}W</li>
+    <hr>
+    </ul>
+</div>
