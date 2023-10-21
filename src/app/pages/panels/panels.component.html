@@ -1,9 +1,17 @@
 <div >
-    Panels
-    <ul *ngFor="let info of panelInfo">
-    <li>{{info.manufacturer}} - {{info.name}}</li>
-    <li>{{info.current}}A</li>
-    <li>{{info.maximumPower}}W</li>
-    <hr>
-    </ul>
+    <span style="color: #7C8590;" >Panels</span>
+
+    <select *ngFor="let info of panelInfo">
+    <option>{{info.manufacturer}} - {{info.name}}</option>
+    <option>{{info.current}}A</option>
+    <option>{{info.maximumPower}}W</option>
+    <option>
+    </select>
+
+    <select style="color: white;">
+        <option>Goias</option>
+        <option>Sao Paulo</option>
+        <option>Piaui</option>
+        <option>
+        </select>
 </div>
