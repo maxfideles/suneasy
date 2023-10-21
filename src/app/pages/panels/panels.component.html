@@ -1,11 +1,8 @@
 <div >
     <span style="color: #7C8590;" >Panels</span>
 
-    <select *ngFor="let info of panelInfo">
-    <option>{{info.manufacturer}} - {{info.name}}</option>
-    <option>{{info.current}}A</option>
-    <option>{{info.maximumPower}}W</option>
-    <option>
+    <select style="color: white;">
+    <option *ngFor="let info of panelInfo">{{info.name}}</option>
     </select>
 
     <select style="color: white;">
