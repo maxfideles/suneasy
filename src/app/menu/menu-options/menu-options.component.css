@@ -1,0 +1,17 @@
+.menu-list{
+    background: #010409;
+}
+
+.menu-list > a {
+    margin-right: 1rem;
+    padding: 1px;
+    text-decoration: none;
+}
+
+.page_activated{
+
+    font-style: italic;
+    color: #238636;
+    background: #161B22;
+    
+}

@@ -1,0 +1,14 @@
+.menu-container{
+    border: 1px white solid;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    background: #010409;
+}
+
+.menu-list > a{
+    text-decoration: none;
+}
+
