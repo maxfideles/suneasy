@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { PanelsService} from 'src/app/services/panels.service';
-import { PanelData} from 'src/app/models/panelData';
 import { InverterData, InverterInfo } from 'src/app/models/inverterData'
 
 
