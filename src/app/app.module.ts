@@ -7,13 +7,15 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { PanelsComponent } from './pages/panels/panels.component';
 import { InvertersComponent } from './pages/inverters/inverters.component';
+import { MenuComponent } from './menu/menu.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     PanelsComponent,
-    InvertersComponent
+    InvertersComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,
