@@ -1,17 +1,16 @@
 .menu-list{
     background: #010409;
+    font-weight: 300;
 }
 
 .menu-list > a {
     margin-right: 1rem;
     padding: 1px;
     text-decoration: none;
+    background: #010409;
 }
 
 .page_activated{
-
-    font-style: italic;
+    font-weight: 700;
     color: #238636;
-    background: #161B22;
-    
 }

@@ -1,14 +1,16 @@
 .menu-container{
-    border: 1px white solid;
     padding: 1rem;
     margin-bottom: 1rem;
+    background: #010409;
     width: 100%;
+
+    display: flex;
     flex-direction: row;
     align-items: center;
-    background: #010409;
+    justify-content: space-between;
 }
 
-.menu-list > a{
-    text-decoration: none;
+.menu-container > span{
+    font-weight: 700;
+    font-size: large;
 }
-
