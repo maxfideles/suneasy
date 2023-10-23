@@ -9,6 +9,7 @@ import { PanelsComponent } from './pages/panels/panels.component';
 import { InvertersComponent } from './pages/inverters/inverters.component';
 import { MenuComponent } from './menu/menu.component';
 import { MenuOptionsComponent } from './menu/menu-options/menu-options.component';
+import { GridComponent } from './grid/grid.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { MenuOptionsComponent } from './menu/menu-options/menu-options.component
     PanelsComponent,
     InvertersComponent,
     MenuComponent,
-    MenuOptionsComponent
+    MenuOptionsComponent,
+    GridComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +27,8 @@ import { MenuOptionsComponent } from './menu/menu-options/menu-options.component
     RouterModule.forRoot([
       {path:'home', component: HomeComponent},
       {path:'panels', component: PanelsComponent},
-      {path: 'inverters', component: InvertersComponent}
+      {path: 'inverters', component: InvertersComponent},
+      {path:'', redirectTo:'home', pathMatch:'full'}
 
     ]),
     HttpClientModule
