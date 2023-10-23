@@ -44,9 +44,22 @@ export class InvertersComponent implements OnInit {
   ngOnInit(): void {
 
     this.getInverters()
+    
+    setTimeout(()=> {
+      this.sortInverters()
+    },500)
 
   }
 
+  sortInverters(){
+    console.log("===Sorting===")
+
+    this.inverterInfo = this.inverterInfo.sort((a,b) => a.capacity - b.capacity)
+
+    console.log(this.inverterInfo)
+    console.log("Sorted")
+
+  }
 
 
   getInverters(){
@@ -59,7 +72,7 @@ export class InvertersComponent implements OnInit {
         this.getManufacturerInverter(this.inverters[index].manufacturer)
         
       }
-
+        
     })
   }
 
