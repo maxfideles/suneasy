@@ -57,7 +57,19 @@ export class PanelsComponent implements OnInit {
 
     this.getPanels()
 
-    this.getPanel("HiKu5 Mono cs3Y-475MS")
+    setTimeout(() => {
+      this.sortPanels()
+    },500)
+
+  }
+
+  sortPanels(){
+    console.log("===Sorting===")
+
+    this.panelInfo = this.panelInfo.sort((a,b) => a.maximumPower - b.maximumPower)
+
+    console.log(this.panelInfo)
+    console.log("Sorted")
 
   }
 
