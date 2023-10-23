@@ -37,7 +37,9 @@ export class PanelsService {
 
   }
 
-
+  getModelsFromManufacturerId(id:number): Observable<PanelInfo[]>{
+    return this.http.get<PanelInfo[]>(`${this.baseUrl}id/${id}`)
+  }
 
 }
 
