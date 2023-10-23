@@ -1,14 +1,7 @@
 <div>
-    <span>Inverters</span>
-    <ul *ngFor="let a of inverterInfo" style="list-style: none;">
-        <li>{{a.manufacturer}} - {{a.name}}</li>
-        <li>{{a.numberMPPTs}}</li>
-        <li>{{a.gridConnection}}</li>
-        <hr>
-    </ul>
-
-    <div>
-        <app-grid [item]="inverterInfo"></app-grid>
-    </div>
+    
+        <div class="grid_container">
+            <app-cardinverters [inverter] = "inverterInfo"></app-cardinverters>
+        </div>
 
 </div>

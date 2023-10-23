@@ -1,4 +1,4 @@
-<div class="grid_container">
+<div class="card_container">
 
     <ul class="card">
         <li class="card_grid">
@@ -13,10 +13,12 @@
                 </div>
             </div>
         </li>
+    </ul>
 
-        <li class="card_grid" *ngFor="let i of item">
-            <div class="card_grid_itens" >
-                <span class="card_grid_iten_title"> {{i.manufacturer}} - {{i.name}}</span>
+    <ul class="card">
+        <li class="card_grid" *ngFor="let i of inverter">
+            <div class="card_grid_itens">
+                <span class="card_grid_iten_title">{{i.manufacturer}} - {{i.name}}</span>
                 <div class="card_grid_infos">
                     <ul>
                         <li>Power: </li>
@@ -27,10 +29,5 @@
             </div>
         </li>
     </ul>
-
-
-
-    
-
 
 </div>

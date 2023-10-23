@@ -9,7 +9,7 @@ import { PanelsComponent } from './pages/panels/panels.component';
 import { InvertersComponent } from './pages/inverters/inverters.component';
 import { MenuComponent } from './menu/menu.component';
 import { MenuOptionsComponent } from './menu/menu-options/menu-options.component';
-import { GridComponent } from './grid/grid.component';
+import { CardComponent } from './pages/inverters/card/card.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,7 @@ import { GridComponent } from './grid/grid.component';
     InvertersComponent,
     MenuComponent,
     MenuOptionsComponent,
-    GridComponent
+    CardComponent
   ],
   imports: [
     BrowserModule,
