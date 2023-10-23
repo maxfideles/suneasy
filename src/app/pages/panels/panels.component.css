@@ -4,3 +4,25 @@
     width: 90%;
     margin: auto;
 }
+
+.panels_sortbox{
+    border: solid 1px #30363D;
+    display: flex;
+    border-radius: 1rem;
+    margin: auto;
+    width: 400px;
+    margin-bottom: 1rem;
+}
+
+.panels_sortbox > button{
+    padding: 0.5rem;
+    width: 50px;
+    height: 30px;
+    background: #238636;
+    border-radius: 0.5rem;
+    border: solid 1px #30363D;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { PanelsService} from 'src/app/services/panels.service';
-import { PanelData} from 'src/app/models/panelData';
+import { PanelData, PanelInfo} from 'src/app/models/panelData';
 
 
 @Component({
@@ -47,7 +47,7 @@ export class PanelsComponent implements OnInit {
       manufacturer:""
     }
   
-  panelInfo: any[]=[]
+  panelInfo: PanelInfo[]=[]
 
 
 
@@ -59,7 +59,7 @@ export class PanelsComponent implements OnInit {
 
     setTimeout(() => {
       this.sortPanels()
-    },100)
+    },400)
 
   }
 
@@ -67,6 +67,7 @@ export class PanelsComponent implements OnInit {
     console.log("===Sorting===")
 
     this.panelInfo = this.panelInfo.sort((a,b) => a.maximumPower - b.maximumPower)
+    this.panels = this.panels.sort((a,b)=> a.manufacturer.localeCompare(b.manufacturer))
 
     console.log(this.panelInfo)
     console.log("Sorted")

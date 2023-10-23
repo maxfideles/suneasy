@@ -1,11 +1,18 @@
 <div >
-    <span style="color: #7C8590;" >Panels</span>
 
-    <select style="color: white;">
-    <option *ngFor="let info of panelInfo">{{info.name}}</option>
-    </select>
+    <div class="panels_sortbox">
+
+        <select style="color: white;" class="dropdown_panels">
+            <option>All</option>
+            <option *ngFor="let info of panels">{{info.manufacturer}}</option>
+        </select>
+        
+        <button type="button" > Sort </button>
+            
+    </div>
+    
 
     <div class="grid-container">
-        <app-card-panels [panel]="panelInfo" ></app-card-panels>
+        <app-card-panels [panel]="panelInfo"></app-card-panels>
     </div>
 </div>
