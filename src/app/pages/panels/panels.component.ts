@@ -126,4 +126,34 @@ export class PanelsComponent implements OnInit {
     )
   }
 
+  getPanelModelsFromManufacturerId(id:number){
+    this.service.getPanelModelsFromManufacturerId(id).subscribe((response) =>{
+
+
+      this.panelInfo = response
+
+      console.log(this.panelInfo)
+
+    })
+  }
+
+  print(id:any){
+    
+   if(id!="All"){
+    var idmanufacturer : number = this.panels[id].id
+
+    this.getPanelModelsFromManufacturerId(idmanufacturer)
+    
+
+   }else{
+    this.panelInfo = []
+    console.log(this.panelInfo)
+    this.getPanels()
+    console.log(this.panelInfo)
+   }
+   
+    console.log(id)
+    
+
+  }
 }
