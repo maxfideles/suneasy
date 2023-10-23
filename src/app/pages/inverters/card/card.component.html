@@ -7,8 +7,8 @@
                 <div class="card_grid_infos">
                     <ul>
                         <li>Power: </li>
-                        <li>Voltage:</li>
-                        <li>N. mppt:</li>
+                        <li>MPPT:</li>
+                        <li>Grid Conn:</li>
                     </ul>
                 </div>
             </div>
@@ -16,17 +16,19 @@
     </ul>
 
     <ul class="card">
-        <li class="card_grid" *ngFor="let i of inverter">
+        <li class="card_grid"  *ngFor="let i of inverter">
+           <a href="#" id="{{i.id}}">
             <div class="card_grid_itens">
                 <span class="card_grid_iten_title">{{i.manufacturer}} - {{i.name}}</span>
                 <div class="card_grid_infos">
                     <ul>
-                        <li>Power: </li>
-                        <li>Voltage:</li>
-                        <li>N. mppt:</li>
+                        <li>Power: {{i.capacity/1000}}kW</li>
+                        <li>MPPT: {{i.numberMPPTs}}</li>
+                        <li>Grid Conn: {{i.gridConnection}}</li>
                     </ul>
                 </div>
             </div>
+           </a>
         </li>
     </ul>
 

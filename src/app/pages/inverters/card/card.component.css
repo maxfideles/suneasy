@@ -5,6 +5,7 @@
     margin: 1rem;
     width: 250px;
     height:100px;
+    
 }
 
 .card_grid_itens{
@@ -38,10 +39,19 @@
     list-style: none;
 }
 
+.card_grid_infos > ul > li{
+    color: #7C8590;
+    margin-left: 1rem;
+}
+
 .card {
     display: flex;
     list-style: none;
     height: 90%;
     flex-wrap: wrap;
     margin: 0.5rem;
+}
+
+a{
+    text-decoration: none;
 }
