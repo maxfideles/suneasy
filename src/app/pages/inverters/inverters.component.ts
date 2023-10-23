@@ -10,6 +10,7 @@ import { InvertersService} from 'src/app/services/inverters.service';
 })
 export class InvertersComponent implements OnInit {
 
+  Item: string = "Fronius"
 
   inverters: InverterData[] = []
 
@@ -43,7 +44,6 @@ export class InvertersComponent implements OnInit {
   ngOnInit(): void {
 
     this.getInverters()
-    this.getInverter("sg20ktl-M")
 
   }
 

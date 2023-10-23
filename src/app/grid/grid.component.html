@@ -1,3 +1,36 @@
 <div class="grid_container">
-    asdasdads
+
+    <ul class="card">
+        <li class="card_grid">
+            <div class="card_grid_itens">
+                <span class="card_grid_iten_title">Fronius - Primo 7.6-1</span>
+                <div class="card_grid_infos">
+                    <ul>
+                        <li>Power: </li>
+                        <li>Voltage:</li>
+                        <li>N. mppt:</li>
+                    </ul>
+                </div>
+            </div>
+        </li>
+
+        <li class="card_grid" *ngFor="let i of item">
+            <div class="card_grid_itens" >
+                <span class="card_grid_iten_title"> {{i.manufacturer}} - {{i.name}}</span>
+                <div class="card_grid_infos">
+                    <ul>
+                        <li>Power: </li>
+                        <li>Voltage:</li>
+                        <li>N. mppt:</li>
+                    </ul>
+                </div>
+            </div>
+        </li>
+    </ul>
+
+
+
+    
+
+
 </div>
