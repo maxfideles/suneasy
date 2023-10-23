@@ -3,7 +3,8 @@
     <ul class="card">
         <li class="card_grid">
             <div class="card_grid_itens">
-                <span class="card_grid_iten_title">Fronius - Primo 7.6-1</span>
+                <span class="card_grid_iten_title">Fronius</span>
+                <span style="font-weight: 300; font-size: small;margin: auto;">Primo 7.6-1</span>
                 <div class="card_grid_infos">
                     <ul>
                         <li>Power: </li>
@@ -19,7 +20,9 @@
         <li class="card_grid"  *ngFor="let i of inverter">
            <a href="#" id="{{i.id}}">
             <div class="card_grid_itens">
-                <span class="card_grid_iten_title">{{i.manufacturer}} - {{i.name}}</span>
+                <span class="card_grid_iten_title">{{i.manufacturer}}</span>
+                <span style="font-weight: 300; font-size: small;margin: auto;">{{i.name}}</span>
+
                 <div class="card_grid_infos">
                     <ul>
                         <li>Power: {{i.capacity/1000}}kW</li>
