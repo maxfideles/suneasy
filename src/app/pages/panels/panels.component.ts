@@ -59,7 +59,7 @@ export class PanelsComponent implements OnInit {
 
     setTimeout(() => {
       this.sortPanels()
-    },500)
+    },100)
 
   }
 

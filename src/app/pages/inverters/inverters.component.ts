@@ -47,7 +47,7 @@ export class InvertersComponent implements OnInit {
     
     setTimeout(()=> {
       this.sortInverters()
-    },500)
+    },100)
 
   }
 
