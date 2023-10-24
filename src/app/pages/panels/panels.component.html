@@ -2,7 +2,7 @@
 
     <div class="panels_sortbox">
 
-        <select style="color: white;" class="dropdown_panels" (change)="print(sel.value)" #sel>
+        <select style="color: white;" class="dropdown_panels" (change)="filterPanels(sel.value)" #sel>
             <option>All</option>
             <option *ngFor="let info of panels;let i =index" [value]="i">{{info.manufacturer}}</option>
         </select>

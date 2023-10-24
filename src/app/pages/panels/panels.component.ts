@@ -137,7 +137,7 @@ export class PanelsComponent implements OnInit {
     })
   }
 
-  print(id:any){
+  filterPanels(id:any){
     
    if(id!="All"){
     var idmanufacturer : number = this.panels[id].id
