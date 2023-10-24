@@ -47,7 +47,7 @@ export class InvertersComponent implements OnInit {
     
     setTimeout(()=> {
       this.sortInverters()
-    },100)
+    },300)
 
   }
 
@@ -117,6 +117,44 @@ export class InvertersComponent implements OnInit {
 
     )
   }
+
+  getInverterModelsFromManufacturerId(id:number){
+    this.service.getInverterModelsFromManufacturerId(id).subscribe((response) =>{
+
+
+      this.inverterInfo = response
+
+      console.log(this.inverter)
+
+    })
+  }
+
+
+
+  filterInverters(id:any){
+
+    
+    if(id!="All"){
+     var idmanufacturer : number = this.inverters[id].id
+ 
+     this.getInverterModelsFromManufacturerId(idmanufacturer)
+     
+ 
+    }else{
+     this.inverterInfo = []
+     console.log(this.inverterInfo)
+     
+     this.getInverters()
+     setTimeout(()=> {
+      this.sortInverters()
+    },300)
+     console.log(this.inverterInfo)
+    }
+    
+     console.log(id)
+     
+ 
+   }
 
 
 

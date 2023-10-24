@@ -39,4 +39,7 @@ export class InvertersService {
     return this.http.get<InverterInfo>(`${this.baseUrl}inverters/inverterManufacturer/${inverterName}`);
   }
 
+  getInverterModelsFromManufacturerId(id:number): Observable<InverterInfo[]>{
+    return this.http.get<InverterInfo[]>(`${this.baseUrl}inverters/id/${id}`)
+  }
 }

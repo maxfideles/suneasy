@@ -1,5 +1,14 @@
 <div>
     
+    <div class="panels_sortbox">
+
+        <select style="color: white;" class="dropdown_panels" (change)="filterInverters(sel.value)" #sel>
+            <option>All</option>
+            <option *ngFor="let info of inverters;let i =index" [value]="i">{{info.manufacturer}}</option>
+        </select>
+                    
+    </div>
+
         <div class="grid_container">
             <app-cardinverters [inverter] = "inverterInfo"></app-cardinverters>
         </div>
