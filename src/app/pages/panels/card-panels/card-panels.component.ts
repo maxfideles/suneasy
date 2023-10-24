@@ -9,10 +9,21 @@ import { PanelInfo } from 'src/app/models/panelData';
 export class CardPanelsComponent implements OnInit {
  @Input()
   panel:PanelInfo[] =[]
-
+  
+  panelSelected!:PanelInfo | any
+  
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+
+  selectPanel(id:number):void{
+
+     this.panelSelected = this.panel.find((a) => a.id==id)
+
+    console.log(this.panelSelected)
+
   }
 
 }
