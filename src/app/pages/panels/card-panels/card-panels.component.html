@@ -17,7 +17,7 @@
 
     <ul class="card">
         <li class="card_grid"  *ngFor="let i of panel">
-           <a href="#" id="{{i.id}}">
+           <a routerLink="panels{{i.id}}" id="{{i.id}}">
             <div class="card_grid_itens">
                 <span class="card_grid_iten_title">{{i.manufacturer}}</span>
                 <span style="font-weight: 300; font-size: small;margin: auto;">{{i.name}}</span>
