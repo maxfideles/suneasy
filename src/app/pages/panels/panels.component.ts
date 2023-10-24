@@ -149,6 +149,9 @@ export class PanelsComponent implements OnInit {
     this.panelInfo = []
     console.log(this.panelInfo)
     this.getPanels()
+    setTimeout(() => {
+      this.sortPanels()
+    },400)
     console.log(this.panelInfo)
    }
    
