@@ -1,7 +1,9 @@
-<div class="card_container">
+<div class="card_container" *ngIf="showPanelDetails==false; else elseBlock">
 
     <ul class="card">
         <li class="card_grid">
+           <a routerLink="/panels" id="{{0}}" (click)="selectPanel(0)">
+
             <div class="card_grid_itens">
                 <span class="card_grid_iten_title">Canadian Solar - HiKu5 Mono cs3Y-475MS</span>
                 <div class="card_grid_infos">
@@ -12,6 +14,9 @@
                     </ul>
                 </div>
             </div>
+
+
+           </a>
         </li>
     </ul>
 
@@ -33,6 +38,16 @@
         </li>
     </ul>
 
+   
     
 
 </div>
+
+<ng-template #elseBlock>
+    <div class="panelDetail_container" style="margin: auto;">
+        <button type="button" (click)="showPanelDetails=false">Close</button>
+        <span>Canadian Solar - HiKu5 Mono cs3Y-475MS</span>
+        <span>{{panelSelected.name}}</span>
+    </div>
+</ng-template>
+

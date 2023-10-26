@@ -9,6 +9,8 @@ import { PanelInfo } from 'src/app/models/panelData';
 export class CardPanelsComponent implements OnInit {
  @Input()
   panel:PanelInfo[] =[]
+
+  showPanelDetails: boolean = false
   
   panelSelected!:PanelInfo | any
   
@@ -21,9 +23,11 @@ export class CardPanelsComponent implements OnInit {
   selectPanel(id:number):void{
 
      this.panelSelected = this.panel.find((a) => a.id==id)
+     this.showPanelDetails = !this.showPanelDetails
 
     console.log(this.panelSelected)
 
   }
+
 
 }
