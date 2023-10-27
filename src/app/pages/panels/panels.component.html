@@ -4,13 +4,14 @@
 
         <select style="color: white;" class="dropdown_panels" (change)="filterPanels(sel.value)" #sel>
             <option>All</option>
-            <option *ngFor="let info of panels;let i =index" [value]="i">{{info.manufacturer}}</option>
+            <option *ngFor="let info of panels;let i =index" [value]="i">{{info.manufacturer}}</option>            
         </select>
                     
     </div>
     
 
     <div class="grid-container">
-        <app-card-panels [panel]="panelInfo"></app-card-panels>
+        <app-card-panels [panel]="panelInfo" ></app-card-panels>
+
     </div>
 </div>
