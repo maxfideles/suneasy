@@ -1,27 +1,7 @@
 <div class="card_container" *ngIf="showPanelDetails==false; else elseBlock">
 
     <ul class="card">
-        <li class="card_grid">
-           <a routerLink="/panels" id="{{0}}" (click)="selectPanel(0)">
-
-            <div class="card_grid_itens">
-                <span class="card_grid_iten_title">Canadian Solar - HiKu5 Mono cs3Y-475MS</span>
-                <div class="card_grid_infos">
-                    <ul>
-                        <li>Power: </li>
-                        <li>MPPT:</li>
-                        <li>Grid Conn:</li>
-                    </ul>
-                </div>
-            </div>
-
-
-           </a>
-        </li>
-    </ul>
-
-    <ul class="card">
-        <li class="card_grid"  *ngFor="let i of panel">
+        <li class="card_grid"  *ngFor="let i of panel.slice(0,20)">
            <a routerLink="/panels" id="{{i.id}}" (click)="selectPanel(i.id)">
             <div class="card_grid_itens">
                 <span class="card_grid_iten_title">{{i.manufacturer}}</span>
