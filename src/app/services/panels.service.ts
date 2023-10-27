@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { PanelData, PanelInfo} from '../models/panelData';
+import { ResponseData } from '../models/responseData'
 import { Observable, catchError, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -9,6 +10,7 @@ import { environment } from 'src/environments/environment';
 })
 export class PanelsService {
 
+  private panelsData: ResponseData | any
   private baseUrl: string
 
   constructor(private http: HttpClient) { 
@@ -18,13 +20,13 @@ export class PanelsService {
   }
 
 
-  getPanels(): Observable<PanelData[]>{
-    return this.http.get<PanelData[]>(`${this.baseUrl}panels`).pipe(catchError(
-      (err: any, caught: Observable<PanelData[]>) => {
+  getPanels(): Observable<ResponseData>{
+    this.panelsData = this.http.get<ResponseData>(`${this.baseUrl}panels`).pipe(catchError(
+      (err: any, caught: Observable<ResponseData>) => {
           console.log(err);
           return caught;
       }));;
-     
+     return this.panelsData
   }
 
   getPanel(panelName:string): Observable<PanelInfo>{
