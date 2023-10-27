@@ -10,6 +10,7 @@ import { PanelData, PanelInfo} from 'src/app/models/panelData';
 })
 export class PanelsComponent implements OnInit {
 
+  aux:PanelInfo[]=[]
   panels: PanelData[] = [{
     id: 0,
     manufacturer: "string",
@@ -57,12 +58,12 @@ export class PanelsComponent implements OnInit {
 
     this.getPanels()
 
-    setTimeout(() => {
-      this.sortPanels()
-    },400)
+    /*setTimeout(() => {
+      console.log(this.panels.id)
+    },400)*/
 
   }
-
+/*
   sortPanels(){
     console.log("===Sorting===")
 
@@ -72,17 +73,47 @@ export class PanelsComponent implements OnInit {
     console.log(this.panelInfo)
     console.log("Sorted")
 
-  }
+  }*/
 
   getPanels(){
-    this.service.getPanels().subscribe((panels) => {
-     this.panels = panels;  
-     console.log(this.panels)
-    
+    this.service.getPanels().subscribe(
+      {
+        next: (response) => {
+          let count = response.count
+          let sucess = response.success
+          this.panels = response.data
+          console.log(this.panels)
+
+          let aux:any
+          let mod!: PanelData
+          let det:any
+          //this.panels.forEach((a) => {mod = (a.models)})
+            aux = this.panels[0].models[0].name
+            
+          console.log(aux)
+
+          for (let i = 0; i < this.panels.length; i++) {
+            for (let j = 0; j < this.panels[i].models.length; j++) {
+              
+              this.panelInfo.push(this.panels[i].models[j])
+              this.aux.push(this.panels[i].models[j])
+              
+            }
+            
+          }
+         
+          console.log(count)
+          console.log(sucess)
+      
+          console.log(this.panelInfo)
+        }
+
+      
+    /*
      for (let index = 0; index < this.panels.length; index++) {
       this.getManufacturerPanel(this.panels[index].manufacturer)
       
-      }
+      }*/
 
    })
     }
@@ -139,19 +170,21 @@ export class PanelsComponent implements OnInit {
 
   filterPanels(id:any){
     
-   if(id!="All"){
-    var idmanufacturer : number = this.panels[id].id
+     
 
-    this.getPanelModelsFromManufacturerId(idmanufacturer)
-    
+   if(id!="All"){
+    var idmanufacturer : string = this.panels[id].manufacturer
+
+    this.panelInfo = this.aux
+    console.log(this.panelInfo)
+    console.log(idmanufacturer)
+
+    this.panelInfo = this.aux.filter(a => a.manufacturer==idmanufacturer)
+    //this.getPanelModelsFromManufacturerId(idmanufacturer)
+    console.log(this.panelInfo)
 
    }else{
-    this.panelInfo = []
-    console.log(this.panelInfo)
-    this.getPanels()
-    setTimeout(() => {
-      this.sortPanels()
-    },400)
+    this.panelInfo = this.aux
     console.log(this.panelInfo)
    }
    
