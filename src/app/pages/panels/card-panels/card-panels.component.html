@@ -44,10 +44,6 @@
 </div>
 
 <ng-template #elseBlock>
-    <div class="panelDetail_container" style="margin: auto;">
-        <button type="button" (click)="showPanelDetails=false">Close</button>
-        <span>Canadian Solar - HiKu5 Mono cs3Y-475MS</span>
-        <span>{{panelSelected.name}}</span>
-    </div>
+ <app-panel [panel]="panelSelected" [state]="showPanelDetails" (toogle)="showPanelDetails=$event"></app-panel>
 </ng-template>
 

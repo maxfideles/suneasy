@@ -11,6 +11,7 @@ import { MenuComponent } from './menu/menu.component';
 import { MenuOptionsComponent } from './menu/menu-options/menu-options.component';
 import { CardComponent } from './pages/inverters/card/card.component';
 import { CardPanelsComponent } from './pages/panels/card-panels/card-panels.component';
+import { PanelComponent } from './pages/panels/card-panels/panel/panel.component'
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { CardPanelsComponent } from './pages/panels/card-panels/card-panels.comp
     MenuComponent,
     MenuOptionsComponent,
     CardComponent,
-    CardPanelsComponent
+    CardPanelsComponent,
+    PanelComponent
   ],
   imports: [
     BrowserModule,

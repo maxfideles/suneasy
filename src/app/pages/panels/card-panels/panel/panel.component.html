@@ -1,1 +1,9 @@
-<p>panel works!</p>
+<div class="panelDetail_container" style="margin: auto;">
+    <input type="text" id="close-input" #newCloseDetails>
+    
+    <button type="button" (click)="closeDetails()"> Close </button>
+    
+    <span>{{panel.name}}</span>
+    <span>{{panel.current}}</span>
+    
+</div>
