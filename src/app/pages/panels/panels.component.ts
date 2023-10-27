@@ -63,24 +63,23 @@ export class PanelsComponent implements OnInit {
     },400)*/
 
   }
-/*
+
   sortPanels(){
     console.log("===Sorting===")
 
     this.panelInfo = this.panelInfo.sort((a,b) => a.maximumPower - b.maximumPower)
-    this.panels = this.panels.sort((a,b)=> a.manufacturer.localeCompare(b.manufacturer))
+   // this.panels = this.panels.sort((a,b)=> a.manufacturer.localeCompare(b.manufacturer))
 
     console.log(this.panelInfo)
     console.log("Sorted")
 
-  }*/
+  }
 
   getPanels(){
     this.service.getPanels().subscribe(
       {
         next: (response) => {
-          let count = response.count
-          let sucess = response.success
+        
           this.panels = response.data
           console.log(this.panels)
 
@@ -101,10 +100,7 @@ export class PanelsComponent implements OnInit {
             }
             
           }
-         
-          console.log(count)
-          console.log(sucess)
-      
+          this.sortPanels()
           console.log(this.panelInfo)
         }
 
