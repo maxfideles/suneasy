@@ -3,11 +3,17 @@
     font-weight: 300;
 }
 
+
 .menu-list > a {
     margin-right: 1rem;
     padding: 1px;
     text-decoration: none;
     background: #010409;
+}
+
+.menu-list > a:hover {
+        font-weight: 700;
+        color: #238636; 
 }
 
 .page_activated{

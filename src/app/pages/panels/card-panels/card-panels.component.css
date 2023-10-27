@@ -8,6 +8,10 @@
     
 }
 
+.card_grid:hover{
+    border: solid 1px #238636
+}
+
 .card_grid_itens{
     display: flex;
     margin: 0.5rem;
