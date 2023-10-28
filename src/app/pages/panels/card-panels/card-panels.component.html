@@ -19,13 +19,12 @@
     </ul>
 
     
-   
+    <div class="card_button">
+        <button type="submit" (click)="loadMore()">More</button>
+        <span style="font-size: smaller;font-weight: 300;">{{endOfCatalog}}</span>
+    </div>
 </div>
 
-<div class="card_button">
-    <button type="submit" (click)="loadMore()">More</button>
-    <span style="font-size: smaller;font-weight: 300;">{{endOfCatalog}}</span>
-</div>
 
 <ng-template #elseBlock>
  <app-panel [panel]="panelSelected" [state]="showPanelDetails" (toogle)="showPanelDetails=$event"></app-panel>
