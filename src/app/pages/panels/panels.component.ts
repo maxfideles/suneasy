@@ -50,6 +50,8 @@ export class PanelsComponent implements OnInit {
   
   panelInfo: PanelInfo[]=[]
 
+  @Input()
+  offset:number = 20
 
 
   constructor(private service: PanelsService) { }
@@ -166,7 +168,7 @@ export class PanelsComponent implements OnInit {
 
   filterPanels(id:any){
     
-     
+     this.offset=20
 
    if(id!="All"){
     var idmanufacturer : string = this.panels[id].manufacturer

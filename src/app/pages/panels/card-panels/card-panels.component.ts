@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { timeout } from 'rxjs';
 import { PanelInfo } from 'src/app/models/panelData';
 
 @Component({
@@ -10,6 +11,15 @@ export class CardPanelsComponent implements OnInit {
  @Input()
   panel:PanelInfo[] =[]
 
+  @Input()
+  offsetChield!:number
+
+  @Output()
+  offsetOutput = new EventEmitter()
+
+  @Input()
+  endOfCatalog!:string
+  
   showPanelDetails: boolean = false
   
   panelSelected!:PanelInfo | any
@@ -29,5 +39,36 @@ export class CardPanelsComponent implements OnInit {
 
   }
 
+  loadMore(){
 
-}
+    
+    if(this.offsetChield<this.panel.length){
+      this.offsetChield+=20
+      
+
+      console.log("CHIELD "+this.offsetChield)
+
+        
+    }else if(this.offsetChield>this.panel.length){
+      
+      this.offsetChield=this.panel.length
+    
+      console.log(this.panel.length)
+      console.log(this.offsetChield+ "IGUAL")
+
+   }
+    else if(this.offsetChield==this.panel.length){
+      this.endOfCatalog = "It is everything we have based on your search"
+      
+      setTimeout(() => {
+      this.endOfCatalog = ""
+      },4000)
+      console.log(this.endOfCatalog + "Deleted!")
+      }
+
+      this.offsetOutput.emit(this.offsetChield)
+    }
+  }
+
+
+

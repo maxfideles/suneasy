@@ -59,3 +59,30 @@
 a{
     text-decoration: none;
 }
+
+.card_button{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    margin: auto;
+}
+
+button{
+    background-color: #238636;
+    width: 100px;
+    height: 30px;
+    border-radius: 0.5rem;
+    border:#30363D solid 1px;
+    margin-bottom: 1rem;
+}
+
+button:hover{
+    
+    background-color: #2DA043;
+}
+
+button:active{
+    border-color: #7C8590;
+    background-color: #238636;
+}
