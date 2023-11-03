@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input} from '@angular/core';
 import { InverterData, InverterInfo } from 'src/app/models/inverterData'
 import { ResponseInverterData } from 'src/app/models/responseData';
 import { InvertersService} from 'src/app/services/inverters.service';
@@ -59,7 +59,8 @@ export class InvertersComponent implements OnInit {
     manufacturer: "string"
   }
 
-
+  @Input()
+  offset:number = 20
 
 
   constructor(private service: InvertersService) { }
