@@ -11,7 +11,8 @@ import { MenuComponent } from './menu/menu.component';
 import { MenuOptionsComponent } from './menu/menu-options/menu-options.component';
 import { CardComponent } from './pages/inverters/card/card.component';
 import { CardPanelsComponent } from './pages/panels/card-panels/card-panels.component';
-import { PanelComponent } from './pages/panels/card-panels/panel/panel.component'
+import { PanelComponent } from './pages/panels/card-panels/panel/panel.component';
+import { InverterComponent } from './pages/inverters/card/inverter/inverter.component'
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { PanelComponent } from './pages/panels/card-panels/panel/panel.component
     MenuOptionsComponent,
     CardComponent,
     CardPanelsComponent,
-    PanelComponent
+    PanelComponent,
+    InverterComponent
   ],
   imports: [
     BrowserModule,
