@@ -12,7 +12,7 @@ export class CardPanelsComponent implements OnInit {
   panel:PanelInfo[] =[]
 
   @Input()
-  offsetChield!:number
+  offsetChild!:number
 
   @Output()
   offsetOutput = new EventEmitter()
@@ -42,22 +42,22 @@ export class CardPanelsComponent implements OnInit {
   loadMore(){
 
     
-    if(this.offsetChield<this.panel.length){
-      this.offsetChield+=20
+    if(this.offsetChild<this.panel.length){
+      this.offsetChild+=20
       
 
-      console.log("CHIELD "+this.offsetChield)
+      console.log("CHILD "+this.offsetChild)
 
         
-    }else if(this.offsetChield>this.panel.length){
+    }else if(this.offsetChild>this.panel.length){
       
-      this.offsetChield=this.panel.length
+      this.offsetChild=this.panel.length
     
       console.log(this.panel.length)
-      console.log(this.offsetChield+ "IGUAL")
+      console.log(this.offsetChild+ "IGUAL")
 
    }
-    else if(this.offsetChield==this.panel.length){
+    else if(this.offsetChild==this.panel.length){
       this.endOfCatalog = "It is everything we have based on your search"
       
       setTimeout(() => {
@@ -66,7 +66,7 @@ export class CardPanelsComponent implements OnInit {
       console.log(this.endOfCatalog + "Deleted!")
       }
 
-      this.offsetOutput.emit(this.offsetChield)
+      this.offsetOutput.emit(this.offsetChild)
     }
   }
 
