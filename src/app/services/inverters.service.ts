@@ -3,6 +3,7 @@ import { InverterData, InverterInfo} from '../models/inverterData'
 import { HttpClient } from '@angular/common/http'
 import { Observable, catchError, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { ResponseData, ResponseInverterData } from '../models/responseData';
 
 
 @Injectable({
@@ -11,7 +12,7 @@ import { environment } from 'src/environments/environment';
 export class InvertersService {
 
   baseUrl: string | any
-  inverterData: InverterData | any
+  invertersData: ResponseInverterData | any
 
 
   constructor(private http: HttpClient) { 
@@ -19,20 +20,20 @@ export class InvertersService {
   }
 
 
-  getInverters(): Observable<InverterData[]>{
-    return this.http.get<InverterData[]>(`${this.baseUrl}inverters`).pipe(catchError(
-      (err: any, caught: Observable<InverterData[]>) => {
+  getInverters(): Observable<ResponseInverterData>{
+    this.invertersData =  this.http.get<ResponseInverterData>(`${this.baseUrl}inverters`).pipe(catchError(
+      (err: any, caught: Observable<ResponseInverterData>) => {
         console.log(err)
         return caught
       }
-
     ))
+    return this.invertersData
   }
 
   getManufacturerInverter(manufacturer:string): Observable<InverterData>{
-    this.inverterData = this.http.get<InverterData>(`${this.baseUrl}inverters/${manufacturer}`)
+    this.invertersData = this.http.get<InverterData>(`${this.baseUrl}inverters/${manufacturer}`)
 
-    return this.inverterData
+    return this.invertersData
   }
 
   getInverter(inverterName: string): Observable<InverterInfo>{
