@@ -21,6 +21,9 @@ export class CardComponent implements OnInit {
 
   showInverterDetails:boolean = false
 
+  @Input()
+  endOfCatalog!:string
+
   constructor() { }
 
   ngOnInit(): void {
@@ -36,5 +39,34 @@ export class CardComponent implements OnInit {
 
  }
 
+ loadMore(){
+
+    
+  if(this.offsetChild<this.inverter.length){
+    this.offsetChild+=20
+    
+
+    console.log("CHILD "+this.offsetChild)
+
+      
+  }else if(this.offsetChild>this.inverter.length){
+    
+    this.offsetChild=this.inverter.length
+  
+    console.log(this.inverter.length)
+    console.log(this.offsetChild+ "IGUAL")
+
+ }
+  else if(this.offsetChild==this.inverter.length){
+    this.endOfCatalog = "It is everything we have based on your search"
+    
+    setTimeout(() => {
+    this.endOfCatalog = ""
+    },4000)
+    console.log(this.endOfCatalog + "Deleted!")
+    }
+
+    this.offsetOutput.emit(this.offsetChild)
+  }
 
 }
