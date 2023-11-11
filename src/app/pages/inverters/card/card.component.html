@@ -1,20 +1,4 @@
-<div class="card_container">
-
-    <ul class="card">
-        <li class="card_grid">
-            <div class="card_grid_itens">
-                <span class="card_grid_iten_title">Fronius</span>
-                <span style="font-weight: 300; font-size: small;margin: auto;">Primo 7.6-1</span>
-                <div class="card_grid_infos">
-                    <ul>
-                        <li>Power: </li>
-                        <li>MPPT:</li>
-                        <li>Grid Conn:</li>
-                    </ul>
-                </div>
-            </div>
-        </li>
-    </ul>
+<div class="card_container" *ngIf="showInverterDetails==false ;else elseBlock">
 
     <ul class="card">
         <li class="card_grid"  *ngFor="let i of inverter.slice(0,offsetChild)">
@@ -42,3 +26,7 @@
     </div>
 
 </div>
+
+<ng-template #elseBlock>
+    <app-inverter [inverter]="inverterSelected" [state]="showInverterDetails" (toogle)="showInverterDetails=$event"></app-inverter>
+</ng-template>
