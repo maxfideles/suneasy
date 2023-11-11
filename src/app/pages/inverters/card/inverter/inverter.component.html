@@ -1,0 +1,91 @@
+<div class="inverterDetails_container">
+    <div class="inverterDetails_titles">
+    <h2>{{inverter.manufacturer}}</h2>
+    <h3>{{inverter.name}}</h3>
+    </div>
+    
+    <div class="inverterDetails_power">
+        <h1>{{inverter.capacity/1000}}kW</h1>
+    </div>
+    
+   
+    <div class="inverterDetails_list">
+ 
+        <ul>
+            <li>
+                <h4>Type</h4>
+                <span>{{inverter.type}}</span>
+            </li>
+            <li id="gray">
+                <h4>Number of MPPT's</h4>
+                <span>{{inverter.numberMPPTs}}</span>
+            </li>
+            <li>
+                <h4>Grid Connection</h4>
+                <span>{{inverter.gridConnection}}</span>
+            </li>
+            <li id="gray">
+                <h4>Efficiency</h4>
+                <span>{{inverter.efficiency}}%</span>
+            </li>
+            <li >
+                <h4>Weight</h4>
+                <span>{{inverter.weight}}kg</span>
+            </li>
+            <li id="gray">
+                <h4>Warranty Years</h4>
+                <span>{{inverter.warrantyYears}}</span>
+            </li>
+
+            </ul>
+
+            <h2 style="margin: auto;padding: 1rem; font-weight: 700;">Input</h2>
+
+            <ul>
+          
+            <li >
+                <h4>Max Voltage</h4>
+                <span>{{inverter.inputVoltageMax}}V</span>
+            </li>
+            <li id="gray">
+                <h4>Min Voltage</h4>
+                <span>{{inverter.inputVoltageMin}}V</span>
+            </li>
+            <li >
+                <h4>Max Current</h4>
+                <span>{{inverter.maxInputCurrent}}A</span>
+            </li>
+            <li id="gray">
+                <h4>Max Short Circuit Current</h4>
+                <span>{{inverter.maxInputShortCircuitCurrent}}A</span>
+            </li>
+
+        </ul>
+
+        <h2 style="margin: auto;padding: 1rem; font-weight: 700;">Output</h2>
+
+        <ul>
+      
+        <li >
+            <h4>Voltage</h4>
+            <span>{{inverter.outputVoltage}}V</span>
+        </li>
+        <li id="gray">
+            <h4>Grid Voltage</h4>
+            <span>{{inverter.gridVoltage}}V</span>
+        </li>
+        <li >
+            <h4>Max Current</h4>
+            <span>{{inverter.maxOutputCurrent}}A</span>
+        </li>
+
+    </ul>
+    </div>
+
+
+
+    <button type="button" class="inverter_button" (click)="closeDetails()"#newCloseDetails> Close </button>
+    
+    
+    
+</div>

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input} from '@angular/core';
 import { InverterData, InverterInfo } from 'src/app/models/inverterData'
+import { ResponseInverterData } from 'src/app/models/responseData';
 import { InvertersService} from 'src/app/services/inverters.service';
 
 
@@ -12,8 +13,30 @@ export class InvertersComponent implements OnInit {
 
   Item: string = "Fronius"
 
-  inverters: InverterData[] = []
+  inverters: InverterData[] = [{
+    id: 0,
+    manufacturer: "string",
+    models:[{id: 0,
+      name: "string",
+      type: "string",
+      capacity: 0,
+      efficiency: 0,
+      inputVoltageMin: 0,
+      inputVoltageMax: 0,
+      outputVoltage: 0,
+      numberMPPTs: 0,
+      maxInputCurrent: 0,
+      maxOutputCurrent: 0,
+      maxInputShortCircuitCurrent: 0,
+      gridConnection: "string",
+      gridVoltage: 0,
+      weight: 0,
+      warrantyYears: 0,
+      manufacturer: "string"
+    }]
+}
 
+  ]
   inverterInfo: any[]= []
   
   inverter: InverterInfo = {
@@ -36,7 +59,8 @@ export class InvertersComponent implements OnInit {
     manufacturer: "string"
   }
 
-
+  @Input()
+  offset:number = 20
 
 
   constructor(private service: InvertersService) { }
@@ -65,7 +89,7 @@ export class InvertersComponent implements OnInit {
   getInverters(){
 
     this.service.getInverters().subscribe((inverters) => {
-      this.inverters = inverters
+      this.inverters = inverters.data
       console.log(this.inverters)
 
       for (let index = 0; index < this.inverters.length; index++) {
