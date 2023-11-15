@@ -9,8 +9,9 @@ import { CityData } from '../../models/cityData'
 })
 export class CitiesComponent implements OnInit {
 
-  cityFetched!: CityData
+  cityFetched: CityData | any
   cities!: string[]
+  states!: string[] | any
 
   stateSelected!:string
   citySelected!:string
@@ -19,12 +20,17 @@ export class CitiesComponent implements OnInit {
 
   ngOnInit(): void {
 
+    console.log(this.citiesAndStates.estados)
+    this.states = this.citiesAndStates.estados
+    console.log(this.states)
     this.getCity("itumbiara","goiás")
     
   }
 
 
   getCity(cityName:string,state:string):void{
+    console.log(`state: ${state}`)
+    console.log(`${cityName}`)
 
     this.service.getCity(cityName,state).subscribe((response)=>
     {

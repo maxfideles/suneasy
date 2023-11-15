@@ -1,16 +1,16 @@
 <p>cities works!</p>
 
+
 <h1>{{ cityFetched.city.name}} - {{ cityFetched.city.state}}</h1>
 
 <h3>Annual Temperature: {{ cityFetched.city.temp}} C</h3>
 
-<h2>{{ cityFetched.horizontalList.annual}}</h2>
 
-<select (change)="getCities(sel.value)" #sel>
-    <option *ngFor="let i of citiesAndStates.estados">{{i.nome}}</option>
+<select (change)="getCities(sel.value)"  #sel>
+    <option *ngFor="let i of states">{{i.nome}}</option>
 </select>
 
-<select (change)="getCity(sela.value,stateSelected)" #sela>
+<select (change)="getCity(sela.value,stateSelected)"#sela>
     <option *ngFor="let i of cities">{{i}}</option>
 </select>
 
