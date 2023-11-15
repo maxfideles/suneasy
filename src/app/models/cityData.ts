@@ -1,4 +1,4 @@
-export interface City {
+export interface CityData {
      city : {
          id : number,
          name :  string ,
