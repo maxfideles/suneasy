@@ -36,6 +36,7 @@ import { CitiesComponent } from './pages/cities/cities.component'
       {path:'home', component: HomeComponent},
       {path:'panels', component: PanelsComponent},
       {path: 'inverters', component: InvertersComponent},
+      {path:'cities',component: CitiesComponent},
       {path:'', redirectTo:'home', pathMatch:'full'}
 
     ]),
