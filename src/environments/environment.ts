@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  sunAPI: 'http://localhost:8080/'
+  sunAPI: 'http://localhost/'
 };
 
 /*
