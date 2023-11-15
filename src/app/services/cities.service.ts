@@ -21,7 +21,7 @@ export class CitiesService {
 
    getCity(cityName:string,state:String):Observable<CityData>{
 
-    this.city = this.http.get<CityData>(`${this.baseUrl}/city/${cityName}/${state}`).pipe(
+    this.city = this.http.get<CityData>(`${this.baseUrl}city/${cityName}/${state}`).pipe(
 
       catchError((err:any, caught: Observable<CityData>)  => {
         console.log(err)
