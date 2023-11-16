@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CitiesService } from '../../services/cities.service'
 import { CityData } from '../../models/cityData'
+import { Chart } from 'chart.js/auto'
+import { ConstantPool } from '@angular/compiler';
 
 @Component({
   selector: 'app-cities',
@@ -9,10 +11,11 @@ import { CityData } from '../../models/cityData'
 })
 export class CitiesComponent implements OnInit {
 
-  cityFetched: CityData | any
+  cityFetched: CityData | any 
   cities!: string[]
   states!: string[] | any
 
+  chart:any
   stateSelected!:string
   citySelected!:string
 
@@ -24,6 +27,8 @@ export class CitiesComponent implements OnInit {
     this.states = this.citiesAndStates.estados
     console.log(this.states)
     this.getCity("itumbiara","goiás")
+
+    //setTimeout(()=>{this.createChart()},1000)
     
   }
 
@@ -37,8 +42,11 @@ export class CitiesComponent implements OnInit {
       this.cityFetched = response
 
       console.log(this.cityFetched)
-    })
 
+      this.createChart()
+    })
+    
+    
       
   }
 
@@ -58,6 +66,58 @@ export class CitiesComponent implements OnInit {
     })
 
     console.log(stateSelected)
+
+  }
+
+  createChart(){
+  
+    if(this.chart!=null){
+      this.chart.destroy()
+    }
+
+    console.log("CASD")
+    
+    var a = this.cityFetched.horizontalList
+    var b = this.cityFetched.tiltedLatList
+    
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    
+    var horizontal = [a.jan, a.feb, a.mar, a.apr, a.may, a.jun, a.jul, a.aug, a.sep, a.oct, a.nov, a.dec]
+    var diffuse = [b.jan, b.feb, b.mar, b.apr, b.may, b.jun, b.jul, b.aug, b.sep, b.oct, b.nov, b.dec]
+    console.log("ASDASD")
+    console.log(a)
+
+    Chart.defaults.font.size = 14
+
+  this.chart = new Chart("MyChart", {
+    type: 'line',
+    data: {
+        labels: months,
+        datasets: [{
+            label:'Horizontal',
+            data: horizontal,
+            borderColor: '#008170',
+            backgroundColor: '#008170',
+            borderWidth: 2
+        },
+        {
+            label: 'Tilted',
+            data: diffuse,
+            borderColor: 'rgba(54, 162, 235, 1)',
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderWidth: 2
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: false
+            },
+        },
+        maintainAspectRatio: true
+    }
+  });
+
 
   }
 
