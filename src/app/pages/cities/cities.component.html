@@ -5,12 +5,14 @@
 
 <h3>Annual Temperature: {{ cityFetched.city.temp}} C</h3>
 
+<div class="cities_sortbox">
 
-<select (change)="getCities(sel.value)"  #sel>
+<select (change)="getCities(sel.value)"  #sel class="dropdown">
     <option *ngFor="let i of states">{{i.nome}}</option>
 </select>
 
-<select (change)="getCity(sela.value,stateSelected)"#sela>
+<select (change)="getCity(sela.value,stateSelected)"#sela class="dropdown">
     <option *ngFor="let i of cities">{{i}}</option>
 </select>
 
+</div>
