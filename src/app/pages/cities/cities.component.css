@@ -20,6 +20,29 @@
     justify-content: center;
 }
 
+.cities-chart-style{
+    border: solid 1px #30363D;
+    display: flex;
+    border-radius: 1rem;
+    margin: auto;
+    width: 150px;
+    height: 70px;
+    margin-bottom: 1rem;
+}
+
+.dropdown2{
+    margin: auto;
+    width: 100px;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    background-color: #21262D;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
 .canva{
     width: 70%;
     border: gray 2px solid; 
@@ -30,3 +53,12 @@
 .canva > canvas {
     margin: 1rem;
 }
+
+.city-info{
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2rem;
+}
+
