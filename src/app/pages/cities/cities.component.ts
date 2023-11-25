@@ -19,6 +19,8 @@ export class CitiesComponent implements OnInit {
   stateSelected!:string
   citySelected!:string
 
+  chartStyle:any = 'line'
+
   constructor(private service: CitiesService) { }
 
   ngOnInit(): void {
@@ -75,7 +77,7 @@ export class CitiesComponent implements OnInit {
       this.chart.destroy()
     }
 
-    console.log("CASD")
+    
     
     var a = this.cityFetched.horizontalList
     var b = this.cityFetched.tiltedLatList
@@ -90,7 +92,7 @@ export class CitiesComponent implements OnInit {
     Chart.defaults.font.size = 14
 
   this.chart = new Chart("MyChart", {
-    type: 'line',
+    type: this.chartStyle,
     data: {
         labels: months,
         datasets: [{
@@ -98,27 +100,43 @@ export class CitiesComponent implements OnInit {
             data: horizontal,
             borderColor: '#008170',
             backgroundColor: '#008170',
-            borderWidth: 2
+            borderWidth: 2,
+            
         },
         {
             label: 'Tilted',
             data: diffuse,
             borderColor: 'rgba(54, 162, 235, 1)',
-            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-            borderWidth: 2
+            backgroundColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 2,
+            
+            
+
         }]
     },
     options: {
         scales: {
             y: {
-                beginAtZero: false
+                beginAtZero: false,
+                title: {
+                  display: true,
+                  text: "Wh/m2.day"
+                }
             },
         },
-        maintainAspectRatio: true
+        maintainAspectRatio: true,
+        
+        
     }
   });
 
 
+  }
+
+  changeChargeStyle(style:any){
+    console.log(style)
+    this.chartStyle = style
+    this.createChart()
   }
 
 
