@@ -12,11 +12,11 @@
 }
 
 .menu-list > a:hover {
-        font-weight: 700;
+        font-weight: normal;
         color: #238636; 
 }
 
 .page_activated{
-    font-weight: 700;
+    font-weight: normal;
     color: #238636;
 }
