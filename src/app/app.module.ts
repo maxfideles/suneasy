@@ -14,7 +14,8 @@ import { CardPanelsComponent } from './pages/panels/card-panels/card-panels.comp
 import { PanelComponent } from './pages/panels/card-panels/panel/panel.component';
 import { InverterComponent } from './pages/inverters/card/inverter/inverter.component';
 import { CitiesComponent } from './pages/cities/cities.component';
-import { MainCardComponent } from './pages/home/main-card/main-card.component'
+import { MainCardComponent } from './pages/home/main-card/main-card.component';
+import { PanelCardComponent } from './pages/home/panel-card/panel-card.component'
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { MainCardComponent } from './pages/home/main-card/main-card.component'
     PanelComponent,
     InverterComponent,
     CitiesComponent,
-    MainCardComponent
+    MainCardComponent,
+    PanelCardComponent
   ],
   imports: [
     BrowserModule,
