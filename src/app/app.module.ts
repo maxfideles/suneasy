@@ -13,7 +13,8 @@ import { CardComponent } from './pages/inverters/card/card.component';
 import { CardPanelsComponent } from './pages/panels/card-panels/card-panels.component';
 import { PanelComponent } from './pages/panels/card-panels/panel/panel.component';
 import { InverterComponent } from './pages/inverters/card/inverter/inverter.component';
-import { CitiesComponent } from './pages/cities/cities.component'
+import { CitiesComponent } from './pages/cities/cities.component';
+import { MainCardComponent } from './pages/home/main-card/main-card.component'
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { CitiesComponent } from './pages/cities/cities.component'
     CardPanelsComponent,
     PanelComponent,
     InverterComponent,
-    CitiesComponent
+    CitiesComponent,
+    MainCardComponent
   ],
   imports: [
     BrowserModule,
