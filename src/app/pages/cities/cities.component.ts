@@ -42,10 +42,14 @@ export class CitiesComponent implements OnInit {
     this.service.getCity(cityName,state).subscribe((response)=>
     {
       this.cityFetched = response
+      if(response==null){
+        console.log("not Found")
+      }else{
 
       console.log(this.cityFetched)
 
       this.createChart()
+      }
     })
     
     
@@ -81,11 +85,14 @@ export class CitiesComponent implements OnInit {
     
     var a = this.cityFetched.horizontalList
     var b = this.cityFetched.tiltedLatList
+    var c = this.cityFetched.diffuseList
     
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     
     var horizontal = [a.jan, a.feb, a.mar, a.apr, a.may, a.jun, a.jul, a.aug, a.sep, a.oct, a.nov, a.dec]
-    var diffuse = [b.jan, b.feb, b.mar, b.apr, b.may, b.jun, b.jul, b.aug, b.sep, b.oct, b.nov, b.dec]
+    var tilted = [b.jan, b.feb, b.mar, b.apr, b.may, b.jun, b.jul, b.aug, b.sep, b.oct, b.nov, b.dec]
+    var diffuse = [c.jan, c.feb, c.mar, c.apr, c.may, c.jun, c.jul, c.aug, c.sep, c.oct, c.nov, c.dec]
+
     console.log("ASDASD")
     console.log(a)
 
@@ -98,21 +105,30 @@ export class CitiesComponent implements OnInit {
         datasets: [{
             label:'Horizontal',
             data: horizontal,
-            borderColor: '#008170',
-            backgroundColor: '#008170',
+            borderColor: '#238636',
+            backgroundColor: '#238636',
             borderWidth: 2,
             
         },
         {
             label: 'Tilted',
-            data: diffuse,
-            borderColor: 'rgba(54, 162, 235, 1)',
-            backgroundColor: 'rgba(54, 162, 235, 1)',
+            data: tilted,
+            borderColor: '#2F81F7',
+            backgroundColor: '#2F81F7',
             borderWidth: 2,
             
             
 
-        }]
+        },
+        {
+          label: 'Diffuse',
+          data: diffuse,
+          borderColor: '#ECF4D6',
+          backgroundColor: '#ECF4D6',
+          borderWidth: 2,
+
+      }
+      ]
     },
     options: {
         scales: {
