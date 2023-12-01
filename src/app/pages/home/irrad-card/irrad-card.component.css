@@ -1,0 +1,43 @@
+*{
+    background-color: white;
+    color: #010409;
+}
+
+.irrad-card-container{
+
+    width: 100%;
+    padding: 2rem 2rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+img{
+    width: 100%;
+    margin-right: 2rem;
+}
+
+.image{
+    width: 40%;
+}
+
+.text{
+    display: flex;
+    flex-direction: column;
+    margin-left: 1.5rem;
+
+}
+
+span{
+    color: #238636;
+}
+
+ul{
+    padding-top: 1rem;
+    list-style: none;
+}
+
+li{
+    padding: 0.5rem;
+}
