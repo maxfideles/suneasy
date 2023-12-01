@@ -1,0 +1,47 @@
+*{
+    background-color: white;
+    color: #010409;
+}
+
+.stripes {
+    margin: auto;
+    width: 30%;
+}
+
+.stripes > *{
+    border-radius: 0.5rem;
+}
+
+.text-title{
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.screens{
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    align-content: center;
+    width: 30%;
+}
+
+.screens > img {
+    max-width: 100%;
+}
+
+.compability{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin: auto;
+    justify-content: center;
+    align-content: center;
+    
+}
+
+.compability > a {
+    
+    align-self: center;
+}
