@@ -17,7 +17,8 @@ import { CitiesComponent } from './pages/cities/cities.component';
 import { MainCardComponent } from './pages/home/main-card/main-card.component';
 import { PanelCardComponent } from './pages/home/panel-card/panel-card.component';
 import { IrradCardComponent } from './pages/home/irrad-card/irrad-card.component';
-import { SimulatorCardComponent } from './pages/home/simulator-card/simulator-card.component'
+import { SimulatorCardComponent } from './pages/home/simulator-card/simulator-card.component';
+import { InverterCardComponent } from './pages/home/inverter-card/inverter-card.component'
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { SimulatorCardComponent } from './pages/home/simulator-card/simulator-ca
     MainCardComponent,
     PanelCardComponent,
     IrradCardComponent,
-    SimulatorCardComponent
+    SimulatorCardComponent,
+    InverterCardComponent
   ],
   imports: [
     BrowserModule,
