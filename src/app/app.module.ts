@@ -47,7 +47,7 @@ import { InverterCardComponent } from './pages/home/inverter-card/inverter-card.
       {path:'panels', component: PanelsComponent},
       {path: 'inverters', component: InvertersComponent},
       {path:'cities',component: CitiesComponent},
-      {path:'', redirectTo:'home', pathMatch:'full'}
+      {path:'', component:HomeComponent}
 
     ]),
     HttpClientModule
