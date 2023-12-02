@@ -174,6 +174,8 @@ export class InvertersComponent implements OnInit {
     },300)
      console.log(this.inverterInfo)
     }
+
+    this.sortInverters()
     
      console.log(id)
      
