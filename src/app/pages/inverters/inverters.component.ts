@@ -96,7 +96,7 @@ export class InvertersComponent implements OnInit {
         this.getManufacturerInverter(this.inverters[index].manufacturer)
         
       }
-        
+        this.sortInverters()
     })
   }
 
@@ -169,13 +169,13 @@ export class InvertersComponent implements OnInit {
      console.log(this.inverterInfo)
      
      this.getInverters()
-     setTimeout(()=> {
-      this.sortInverters()
-    },300)
+
      console.log(this.inverterInfo)
     }
 
-    this.sortInverters()
+    setTimeout(()=> {
+      this.sortInverters()
+    },500)
     
      console.log(id)
      
