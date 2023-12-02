@@ -185,7 +185,7 @@ export class PanelsComponent implements OnInit {
     this.panelInfo = this.aux
     console.log(this.panelInfo)
    }
-   
+   this.sortPanels()
     console.log(id)
     
 
