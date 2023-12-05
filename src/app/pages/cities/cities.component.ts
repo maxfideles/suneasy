@@ -3,6 +3,7 @@ import { CitiesService } from '../../services/cities.service'
 import { CityData } from '../../models/cityData'
 import { Chart } from 'chart.js/auto'
 import { ConstantPool } from '@angular/compiler';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser'
 
 @Component({
   selector: 'app-cities',
@@ -15,13 +16,18 @@ export class CitiesComponent implements OnInit {
   cities!: string[]
   states!: string[] | any
 
-  chart:any
-  stateSelected!:string
-  citySelected!:string
+  chart: any
+  stateSelected!: string
+  citySelected!: string
 
-  chartStyle:any = 'line'
+  urlSafe!: SafeResourceUrl
+  mapLink!: string
 
-  constructor(private service: CitiesService) { }
+  
+
+  chartStyle: any = 'line'
+
+  constructor(private service: CitiesService, private sanitizer:DomSanitizer) { }
 
   ngOnInit(): void {
 
@@ -29,7 +35,6 @@ export class CitiesComponent implements OnInit {
     this.states = this.citiesAndStates.estados
     console.log(this.states)
     this.getCity("itumbiara","goiás")
-
     //setTimeout(()=>{this.createChart()},1000)
     
   }
@@ -49,6 +54,18 @@ export class CitiesComponent implements OnInit {
       console.log(this.cityFetched)
 
       this.createChart()
+
+      let cityLat = this.cityFetched.city.lat
+      let cityLon = this.cityFetched.city.lon
+      let api= "AIzaSyA0_-cVwh5M9hBWaPghzOHcJ5sGccJt8rA"
+      this.mapLink = `https://www.google.com/maps/embed/v1/place?key=AIzaSyA0_-cVwh5M9hBWaPghzOHcJ5sGccJt8rA&q=${cityLat},${cityLon}&zoom=14`
+    
+      this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.mapLink);
+   
+    
+      console.log(`URL Safe: ${this.urlSafe}`)
+      console.log(`Map Link: ${this.mapLink}`)
+
       }
     })
     
