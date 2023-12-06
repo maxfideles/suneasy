@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { PanelsService} from 'src/app/services/panels.service';
 import { InverterData, InverterInfo } from 'src/app/models/inverterData'
+import { SimulatorService } from 'src/app/services/simulator.service';
 
 
 @Component({
@@ -36,11 +36,22 @@ export class HomeComponent implements OnInit {
     manufacturer: "string"
   }
 
-  constructor(private service: PanelsService) { }
+  constructor(private service: SimulatorService) { }
 
   ngOnInit(): void {
 
+    this.simulateSystem()
     
+  }
+
+  simulateSystem(){
+    this.service.simulate().subscribe((response) => {
+      console.log(`Response: ${response}`)
+      console.log(`Gen Mensal: ${response.genM}`)
+      console.log(`Gen Anual: ${response.genT}`)
+      console.log(`Pot Sys: ${response.potSys}`)
+      console.log(`Num Mod: ${response.numMod}`)
+    })
   }
 
 
