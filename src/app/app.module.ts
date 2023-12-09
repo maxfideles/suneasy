@@ -49,7 +49,7 @@ import { SimulatorComponent } from './pages/simulator/simulator.component'
       {path:'panels', component: PanelsComponent},
       {path: 'inverters', component: InvertersComponent},
       {path:'cities', component: CitiesComponent},
-      {path:'simulator', component: SimulatorCardComponent },
+      {path:'simulator', component: SimulatorComponent },
       {path:'', component:HomeComponent}
 
     ]),
