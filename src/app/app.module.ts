@@ -18,7 +18,8 @@ import { MainCardComponent } from './pages/home/main-card/main-card.component';
 import { PanelCardComponent } from './pages/home/panel-card/panel-card.component';
 import { IrradCardComponent } from './pages/home/irrad-card/irrad-card.component';
 import { SimulatorCardComponent } from './pages/home/simulator-card/simulator-card.component';
-import { InverterCardComponent } from './pages/home/inverter-card/inverter-card.component'
+import { InverterCardComponent } from './pages/home/inverter-card/inverter-card.component';
+import { SimulatorComponent } from './pages/simulator/simulator.component'
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { InverterCardComponent } from './pages/home/inverter-card/inverter-card.
     PanelCardComponent,
     IrradCardComponent,
     SimulatorCardComponent,
-    InverterCardComponent
+    InverterCardComponent,
+    SimulatorComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +48,8 @@ import { InverterCardComponent } from './pages/home/inverter-card/inverter-card.
       {path:'home', component: HomeComponent},
       {path:'panels', component: PanelsComponent},
       {path: 'inverters', component: InvertersComponent},
-      {path:'cities',component: CitiesComponent},
+      {path:'cities', component: CitiesComponent},
+      {path:'simulator', component: SimulatorCardComponent },
       {path:'', component:HomeComponent}
 
     ]),
