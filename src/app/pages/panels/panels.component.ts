@@ -11,26 +11,7 @@ import { PanelData, PanelInfo} from 'src/app/models/panelData';
 export class PanelsComponent implements OnInit {
 
   aux:PanelInfo[]=[]
-  panels: PanelData[] = [{
-    id: 0,
-    manufacturer: "string",
-    models: [{
-      id: 0,
-      name: "string",
-      type: "string",
-      efficiency: 0,
-      maximumPower: 0,
-      voltage: 0,
-      current: 0,
-      length: 0,
-      width: 0,
-      thickness: 0,
-      weight: 0,
-      frameColor: "string",
-      warrantyYears: 0,
-      manufacturer: ""
-    }]
-  }]
+  panels!: PanelData[] | any
   panel = {
       id: 0,
       name: "string",
@@ -105,13 +86,6 @@ export class PanelsComponent implements OnInit {
           this.sortPanels()
           console.log(this.panelInfo)
         }
-
-      
-    /*
-     for (let index = 0; index < this.panels.length; index++) {
-      this.getManufacturerPanel(this.panels[index].manufacturer)
-      
-      }*/
 
    })
     }
