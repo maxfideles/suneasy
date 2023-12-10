@@ -40,11 +40,11 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.simulateSystem()
+    //this.simulateSystem()
     
   }
 
-  simulateSystem(){
+ /* simulateSystem(){
     this.service.simulate().subscribe((response) => {
       console.log(`Response: ${response}`)
       console.log(`Gen Mensal: ${response.genM}`)
@@ -52,7 +52,7 @@ export class HomeComponent implements OnInit {
       console.log(`Pot Sys: ${response.potSys}`)
       console.log(`Num Mod: ${response.numMod}`)
     })
-  }
+  }*/
 
 
 }
