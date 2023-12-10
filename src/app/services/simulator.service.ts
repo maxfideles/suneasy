@@ -17,8 +17,8 @@ export class SimulatorService {
     this.baseUrl = environment.sunAPI
    }
 
-  simulate():Observable<simulatorResponse>{
-    var data: simulatorData = {panelId:5,cityId:1817,cons:15000,inc:18,ori:270}
+  simulate(data:simulatorData):Observable<simulatorResponse>{
+    
     this.simResult = this.http.post<simulatorResponse>(`${this.baseUrl}sim/res`,data).pipe(
       catchError((err:any, caught:Observable<simulatorResponse>) => {
         return caught
