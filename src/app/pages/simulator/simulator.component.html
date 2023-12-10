@@ -1,1 +1,39 @@
-<p>simulator works!</p>
+<div class="simulator-container">
+    <h1>Simulator</h1>
+    
+    <div class="frame-simulator">
+
+        
+        <div class="cities_sortbox">
+
+            <select (change)="getCities(sel.value)"  #sel class="dropdown">
+                <option *ngFor="let i of states">{{i.nome}}</option>
+            </select>
+            
+            <select (change)="selectCity(sela.value)"#sela class="dropdown">
+                <option *ngFor="let i of cities">{{i}}</option>
+            </select>
+            
+        </div>
+        
+        <div class="cities_sortbox">
+
+            <select (change)="filterPanels(pan.value)" #pan class="dropdown">
+                <option selected=""></option>
+                <option *ngFor="let info of panels;let i =index" [value]="i">{{info.manufacturer}}</option>
+            </select>
+            
+            <select (change)="selectPanel(panMod.value)"#panMod class="dropdown">
+                <option *ngFor="let info of panelInfo;" [value]="info.id">{{info.name}}</option>
+            </select>
+            
+        </div>
+
+        <div class="simulator_button">
+            <button type="submit" (click)="simulateSystem()">Simulate</button>
+        </div>
+
+                
+    </div>
+
+</div>
