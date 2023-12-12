@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Chart } from 'chart.js';
 import { CityData } from 'src/app/models/cityData';
 import { PanelData, PanelInfo } from 'src/app/models/panelData';
 import { simulatorData } from 'src/app/models/simulatorData';
+import { simulatorResponse } from 'src/app/models/simulatorResponse';
 import { CitiesService } from 'src/app/services/cities.service';
 import { PanelsService } from 'src/app/services/panels.service';
 import { SimulatorService } from 'src/app/services/simulator.service';
@@ -26,9 +28,18 @@ export class SimulatorComponent implements OnInit {
   aux:PanelInfo[]=[]
   panelSelectedId!:number
 
+  //system
+  consumption:number = 0
+  orientation:number = 1
+  inclination:number = 1
+
   //chart
   chart:any
-  chartStyle:any = 'line'
+  chartStyle:any = 'bar'
+
+  //Simulated
+
+  responseSimulation!: simulatorResponse
 
   constructor(private simulateService: SimulatorService ,private cityService: CitiesService, private panelService: PanelsService) { }
 
@@ -41,16 +52,42 @@ export class SimulatorComponent implements OnInit {
 
   simulateSystem(){
 
-    var data: simulatorData = {panelId:this.panelSelectedId,cityId:this.cityFetched.city.id,cons:15000,inc:18,ori:270}
+    var data: simulatorData = {
+      panelId:this.panelSelectedId,
+      cityId:this.cityFetched.city.id,
+      cons:this.consumption,
+      inc:this.inclination,
+      ori:this.orientation}
 
     this.simulateService.simulate(data).subscribe((response) => {
-      console.log(`Response: ${response}`)
+
+      this.responseSimulation = response
+      console.log(`Response: ${this.responseSimulation.numMod}`)
       console.log(`Gen Mensal: ${response.genM}`)
       console.log(`Gen Anual: ${response.genT}`)
       console.log(`Pot Sys: ${response.potSys}`)
       console.log(`Num Mod: ${response.numMod}`)
+
+      this.createChart()
     })
   }
+
+con(cons:any){
+  this.consumption = cons.target.value
+  console.log(`Con: ${this.consumption}`)
+}
+ori(ori:any){
+  this.orientation = ori.target.value
+  if(this.orientation==0) this.orientation=1
+  console.log(`Ori: ${this.orientation}`)
+}
+
+inc(inc:any){
+  this.inclination = inc.target.value
+  if(this.inclination==0) this.inclination=1
+
+  console.log(`Inc: ${this.inclination}`)
+}
 
 
   getCities(stateSelected:string){
@@ -159,7 +196,64 @@ export class SimulatorComponent implements OnInit {
 
   }
 
+  createChart(){
+  
+    if(this.chart!=null){
+      this.chart.destroy()
+    }
+
     
+    
+    
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    
+    let annualConsumption= this.consumption
+    var consumption= [annualConsumption/12,annualConsumption/12,annualConsumption/12,annualConsumption/12,annualConsumption/12,annualConsumption/12,annualConsumption/12,annualConsumption/12,annualConsumption/12,annualConsumption/12,annualConsumption/12,annualConsumption/12]
+
+    console.log("ASDASD")
+
+    Chart.defaults.font.size = 14
+
+  this.chart = new Chart("MyChart", {
+    type: this.chartStyle,
+    data: {
+        labels: months,
+        datasets: [{
+            label:'Generation',
+            data: this.responseSimulation.genM,
+            borderColor: '#238636',
+            backgroundColor: '#238636',
+            borderWidth: 2,  
+        },
+        {
+            label: "Consumption",
+            data: consumption,
+            borderColor: '#2F81F7',
+            backgroundColor: '#2F81F7',
+            borderWidth: 2,
+        }
+      ]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true,
+                title: {
+                  display: true,
+                  text: "kWh"
+                }
+            },
+        },
+        maintainAspectRatio: true,
+        
+        
+    }
+  });
+
+
+  }
+
+
 
   citiesAndStates = {
     "estados": [
