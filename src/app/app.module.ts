@@ -52,7 +52,7 @@ import { SimulatorComponent } from './pages/simulator/simulator.component'
       {path:'simulator', component: SimulatorComponent },
       {path:'', component:HomeComponent}
 
-    ]),
+    ], {useHash:true}),
     HttpClientModule
   ],
   providers: [],
