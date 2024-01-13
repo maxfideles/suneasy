@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  sunAPI: 'https://sunwaymono-production.up.railway.app/'
-  //sunAPI: 'http://localhost/'
+  //sunAPI: 'https://sunwaymono-production.up.railway.app/'
+  sunAPI: 'http://localhost:8080/'
 };
 
 /*

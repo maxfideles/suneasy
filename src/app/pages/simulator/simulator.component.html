@@ -1,0 +1,49 @@
+<div class="simulator-container">
+    <h1>Simulator</h1>
+    
+    <div class="frame-simulator">
+
+        
+        <div class="cities_sortbox">
+
+            <select (change)="getCities(sel.value)"  #sel class="dropdown">
+                <option *ngFor="let i of states">{{i.nome}}</option>
+            </select>
+            
+            <select (change)="selectCity(sela.value)"#sela class="dropdown">
+                <option *ngFor="let i of cities">{{i}}</option>
+            </select>
+            
+        </div>
+        
+        <div class="panels_sortbox">
+
+            <select (change)="filterPanels(pan.value)" #pan class="dropdown">
+                <option selected=""></option>
+                <option *ngFor="let info of panels;let i =index" [value]="i">{{info.manufacturer}}</option>
+            </select>
+            
+            <select (change)="selectPanel(panMod.value)"#panMod class="dropdown">
+                <option *ngFor="let info of panelInfo;" [value]="info.id">{{info.name}}</option>
+            </select>
+            
+        </div>
+
+        <div class="install-sortbox">
+            <input class="input" type="text" placeholder="Ann. Cons. kWh" (keyup)="con($event)">
+            <input class="input"  type="text" placeholder="Orientation" (keyup)="ori($event)">
+            <input class="input"  type="text" placeholder="Inclination" (keyup)="inc($event)">
+        </div>
+
+        <div class="simulator_button">
+            <button type="submit" (click)="simulateSystem()">Simulate</button>
+        </div>
+
+                
+    </div>
+
+    <div class="canva">
+        <canvas  id="MyChart" >{{ chart }}</canvas>
+    </div>
+
+</div>
