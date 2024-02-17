@@ -17,12 +17,21 @@ export class CardComponent implements OnInit {
   @Output()
   offsetOutput = new EventEmitter()
 
+  @Output()
+  manufacturerOutput = new EventEmitter()
+
+  @Output()
+  dropDownShown = new EventEmitter()
+
   inverterSelected: InverterInfo|any
 
   showInverterDetails:boolean = false
 
   @Input()
   endOfCatalog!:string
+
+  @Input()
+  filter:any
 
   constructor() { }
 
@@ -37,36 +46,28 @@ export class CardComponent implements OnInit {
 
    console.log(this.inverterSelected)
 
+   this.dropDownShown.emit(!this.showInverterDetails)
+
  }
 
  loadMore(){
 
+  this.offsetOutput.emit();
     
-  if(this.offsetChild<this.inverter.length){
-    this.offsetChild+=20
-    
-
-    console.log("CHILD "+this.offsetChild)
-
-      
-  }else if(this.offsetChild>this.inverter.length){
-    
-    this.offsetChild=this.inverter.length
-  
-    console.log(this.inverter.length)
-    console.log(this.offsetChild+ "IGUAL")
-
  }
-  else if(this.offsetChild==this.inverter.length){
-    this.endOfCatalog = "It is everything we have based on your search"
-    
-    setTimeout(() => {
-    this.endOfCatalog = ""
-    },4000)
-    console.log(this.endOfCatalog + "Deleted!")
-    }
 
-    this.offsetOutput.emit(this.offsetChild)
+ loadMoreFiltered(){
+  console.log("manufacturer")
+    this.manufacturerOutput.emit({id:this.filter})
+
+  }
+
+  dropdownStatus(status:boolean){
+
+    this.showInverterDetails = status;
+
+    this.dropDownShown.emit(!this.showInverterDetails);
+
   }
 
 }

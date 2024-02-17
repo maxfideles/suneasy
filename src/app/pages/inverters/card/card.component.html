@@ -1,7 +1,7 @@
 <div class="card_container" *ngIf="showInverterDetails==false ;else elseBlock">
 
     <ul class="card">
-        <li class="card_grid"  *ngFor="let i of inverter.slice(0,offsetChild)">
+        <li class="card_grid"  *ngFor="let i of inverter">
            <a routerLink="/inverters" id="{{i.id}}" (click)="selectInverter(i.id)">
             <div class="card_grid_itens">
                 <span class="card_grid_iten_title">{{i.manufacturer}}</span>
@@ -20,13 +20,15 @@
     </ul>
 
 
-    <div class="card_button">
+    <div class="card_button" *ngIf="filter == 'All'">
         <button type="submit" (click)="loadMore()">More</button>
-        <span style="font-size: smaller;font-weight: 300;">{{endOfCatalog}}</span>
+    </div>
+    <div class="card_button" *ngIf="filter != 'All'">
+        <button type="submit" (click)="loadMoreFiltered()">More</button>
     </div>
 
 </div>
 
 <ng-template #elseBlock>
-    <app-inverter [inverter]="inverterSelected" [state]="showInverterDetails" (toogle)="showInverterDetails=$event"></app-inverter>
+    <app-inverter [inverter]="inverterSelected" [state]="showInverterDetails" (toogle)="dropdownStatus($event)"></app-inverter>
 </ng-template>

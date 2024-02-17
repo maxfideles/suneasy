@@ -37,7 +37,7 @@ export class InvertersComponent implements OnInit {
 }
 
   ]
-  inverterInfo: any[]= []
+  inverterInfo: InverterInfo[]= []
   
   inverter: InverterInfo = {
     id: 0,
@@ -59,46 +59,60 @@ export class InvertersComponent implements OnInit {
     manufacturer: "string"
   }
 
+  inverterManufactures: any
+
   @Input()
   offset:number = 20
+
+  page:number = 0
+
+  more:string = "All"
+
+  isDropdownShown:boolean = true
 
 
   constructor(private service: InvertersService) { }
 
   ngOnInit(): void {
 
-    this.getInverters()
+    this.getInverters();
+    this.getInverterManufactores()
     
-    setTimeout(()=> {
-      this.sortInverters()
-    },500)
-
-  }
-
-  sortInverters(){
-    console.log("===Sorting===")
-
-    this.inverterInfo = this.inverterInfo.sort((a,b) => a.capacity - b.capacity)
-
-    console.log(this.inverterInfo)
-    console.log("Sorted")
 
   }
 
 
   getInverters(){
 
-    this.service.getInverters().subscribe((inverters) => {
-      this.inverters = inverters.data
-      console.log(this.inverters)
+    this.service.getInverters(this.page).subscribe((response) => {
 
-      for (let index = 0; index < this.inverters.length; index++) {
-        this.getManufacturerInverter(this.inverters[index].manufacturer)
-        
+      response.data.forEach((a) => {
+        this.inverterInfo.push(a)
+        console.log(a)
+      })
+
+
+      if(Object.keys(response.data).length != 0){
+        this.page +=1;
+      }else{
+        alert("All inverters were loaded!")
       }
-        this.sortInverters()
+
+
     })
   }
+
+
+  getInverterManufactores(){
+
+    this.service.getInverterManufactores().subscribe((response) => {
+
+      this.inverterManufactures = response;
+
+    })
+
+  }
+
 
   getManufacturerInverter(manufacturer:string){
     this.service.getManufacturerInverter(manufacturer).subscribe((manu) => {
@@ -143,12 +157,18 @@ export class InvertersComponent implements OnInit {
   }
 
   getInverterModelsFromManufacturerId(id:number){
-    this.service.getInverterModelsFromManufacturerId(id).subscribe((response) =>{
+    this.service.getInverterModelsFromManufacturerId(id,this.page).subscribe((response) =>{
 
 
-      this.inverterInfo = response
+      response.forEach((a) => {
+        this.inverterInfo.push(a)
+      })
 
-      console.log(this.inverter)
+      if(Object.keys(response).length != 0){
+        this.page +=1;
+      }else{
+        alert("All inverters were loaded!")
+      }
 
     })
   }
@@ -159,23 +179,23 @@ export class InvertersComponent implements OnInit {
 
     
     if(id!="All"){
-     var idmanufacturer : number = this.inverters[id].id
- 
-     this.getInverterModelsFromManufacturerId(idmanufacturer)
+      this.inverterInfo = []
+      this.page=0;
      
+      this.getInverterModelsFromManufacturerId(id)
+     
+     this.more = id;
  
     }else{
-     this.inverterInfo = []
+     this.inverterInfo = [];
+     this.page=0;
+
      console.log(this.inverterInfo)
      
      this.getInverters()
 
      console.log(this.inverterInfo)
     }
-
-    setTimeout(()=> {
-      this.sortInverters()
-    },500)
     
      console.log(id)
      

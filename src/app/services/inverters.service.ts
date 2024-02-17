@@ -14,14 +14,18 @@ export class InvertersService {
   baseUrl: string | any
   invertersData: ResponseInverterData | any
 
+  private invertersFiltered: any
+
+  private inverterManufactores:any
+
 
   constructor(private http: HttpClient) { 
     this.baseUrl = environment.sunAPI
   }
 
 
-  getInverters(): Observable<ResponseInverterData>{
-    this.invertersData =  this.http.get<ResponseInverterData>(`${this.baseUrl}inverters`).pipe(catchError(
+  getInverters(page:number): Observable<ResponseInverterData>{
+    this.invertersData =  this.http.get<ResponseInverterData>(`${this.baseUrl}inverters?page=${page}&size=10`).pipe(catchError(
       (err: any, caught: Observable<ResponseInverterData>) => {
         console.log(err)
         return caught
@@ -29,6 +33,17 @@ export class InvertersService {
     ))
     return this.invertersData
   }
+
+  getInverterManufactores(): Observable<any>{
+    this.inverterManufactores = this.http.get<any>(`${this.baseUrl}inverters/manufactures`).pipe(
+      catchError( (err:any, caught: Observable<any>) => {
+        console.log(err);
+        return caught;
+      } )
+    )
+    return this.inverterManufactores;
+  }
+
 
   getManufacturerInverter(manufacturer:string): Observable<InverterData>{
     this.invertersData = this.http.get<InverterData>(`${this.baseUrl}inverters/${manufacturer}`)
@@ -40,7 +55,16 @@ export class InvertersService {
     return this.http.get<InverterInfo>(`${this.baseUrl}inverters/inverterManufacturer/${inverterName}`);
   }
 
-  getInverterModelsFromManufacturerId(id:number): Observable<InverterInfo[]>{
-    return this.http.get<InverterInfo[]>(`${this.baseUrl}inverters/id/${id}`)
+  getInverterModelsFromManufacturerId(id:number,page:number): Observable<InverterInfo[]>{
+      
+    this.invertersFiltered =  this.http.get<InverterInfo[]>(`${this.baseUrl}inverters/id/${id}/pag?page=${page}&size=10`).pipe(
+      catchError((err:any,caught:Observable<InverterInfo[]>) => {
+        console.log(err);
+        return caught;
+      })
+    )
+
+    return this.invertersFiltered;
+
   }
 }

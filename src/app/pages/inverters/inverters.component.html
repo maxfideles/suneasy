@@ -1,16 +1,24 @@
 <div>
     
-    <div class="panels_sortbox">
+    <div class="inverter_sortbox" *ngIf="isDropdownShown==true">
 
         <select style="color: white;" class="dropdown_panels" (change)="filterInverters(sel.value)" #sel>
+            <option value="" selected disabled hidden>Select Manufacturer</option>
             <option>All</option>
-            <option *ngFor="let info of inverters;let i =index" [value]="i">{{info.manufacturer}}</option>
+            <option *ngFor="let info of inverterManufactures;let i =index" [value]="info.id">{{info.manufacturer}}</option>
         </select>
                     
     </div>
 
         <div class="grid_container">
-            <app-cardinverters [inverter] = "inverterInfo" [offsetChild]="offset"></app-cardinverters>
+            <app-cardinverters 
+                [inverter]="inverterInfo" 
+                (offsetOutput)="getInverters()"
+                (manufacturerOutput)="getInverterModelsFromManufacturerId($event.id)"
+                [filter]="more"
+                (dropDownShown)="isDropdownShown=$event"
+                >
+            </app-cardinverters>
         </div>
 
 </div>
