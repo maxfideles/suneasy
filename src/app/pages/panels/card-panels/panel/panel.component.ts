@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PanelInfo } from 'src/app/models/panelData';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-panel',

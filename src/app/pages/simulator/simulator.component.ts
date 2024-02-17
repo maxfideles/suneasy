@@ -139,7 +139,7 @@ inc(inc:any){
 
 
   getPanels(){
-    this.panelService.getPanels().subscribe(
+    this.panelService.getPanels(0).subscribe(
       {
         next: (response) => {
         

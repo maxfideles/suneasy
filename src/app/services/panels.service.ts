@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { PanelData, PanelInfo} from '../models/panelData';
 import { ResponseData } from '../models/responseData'
-import { Observable, catchError, map } from 'rxjs';
+import { Observable, catchError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -13,6 +13,8 @@ export class PanelsService {
   private panelsData: ResponseData | any
   private baseUrl: string
 
+  private panelManufactories:any
+
   constructor(private http: HttpClient) { 
 
     this.baseUrl = environment.sunAPI
@@ -20,12 +22,13 @@ export class PanelsService {
   }
 
 
-  getPanels(): Observable<ResponseData>{
-    this.panelsData = this.http.get<ResponseData>(`${this.baseUrl}panels`).pipe(catchError(
-      (err: any, caught: Observable<ResponseData>) => {
+  getPanels(page:number): Observable<ResponseData>{
+    this.panelsData = this.http.get<ResponseData>(`${this.baseUrl}panels?page=${page}&size=10`).pipe(
+      catchError( (err: any, caught: Observable<ResponseData>) => {
           console.log(err);
           return caught;
-      }));;
+      }));
+
      return this.panelsData
   }
 
@@ -39,8 +42,18 @@ export class PanelsService {
 
   }
 
-  getPanelModelsFromManufacturerId(id:number): Observable<PanelInfo[]>{
-    return this.http.get<PanelInfo[]>(`${this.baseUrl}panels/id/${id}`)
+  getPanelModelsFromManufacturerId(id:number,page:number): Observable<PanelInfo[]>{
+    return this.http.get<PanelInfo[]>(`${this.baseUrl}panels/id/${id}/pag?page=${page}&size=10`)
+  }
+
+  getPanelManufactories(): Observable<any>{
+    this.panelManufactories = this.http.get<any>(`${this.baseUrl}panels/manufactures`).pipe(
+      catchError( (err:any, caught: Observable<any>) => {
+        console.log(err);
+        return caught;
+      })
+    )
+    return this.panelManufactories;
   }
 
 }

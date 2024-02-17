@@ -1,17 +1,24 @@
 <div >
 
-    <div class="panels_sortbox">
+    <div class="panels_sortbox" *ngIf="isDropdownShown==true">
 
         <select style="color: white;" class="dropdown_panels" (change)="filterPanels(sel.value)" #sel>
+            <option value="" selected disabled hidden>Select Manufacturer</option>
             <option>All</option>
-            <option *ngFor="let info of panels;let i =index" [value]="i">{{info.manufacturer}}</option>            
+            <option *ngFor="let info of panelManufactories;let i =index" [value]="info.id">{{info.manufacturer}}</option>            
         </select>
                     
     </div>
     
 
     <div class="grid-container">
-        <app-card-panels [panel]="panelInfo" [offsetChild]="offset" ></app-card-panels>
+        <app-card-panels 
+            [panel]="panelInfo" 
+            (allsetOutput)="getPanels()" 
+            (manufacturerOutput)="getPanelModelsFromManufacturerId($event.id)" 
+            [filter]="more"  
+            (dropdownShown)="isDropdownShown=$event"
+            ></app-card-panels>
 
     </div>
 </div>

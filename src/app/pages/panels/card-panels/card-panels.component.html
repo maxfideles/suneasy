@@ -1,7 +1,7 @@
 <div class="card_container" *ngIf="showPanelDetails==false; else elseBlock">
 
     <ul class="card">
-        <li class="card_grid"  *ngFor="let i of panel.slice(0,offsetChild)">
+        <li class="card_grid"  *ngFor="let i of panel">
            <a routerLink="/panels" id="{{i.id}}" (click)="selectPanel(i.id)">
             <div class="card_grid_itens">
                 <span class="card_grid_iten_title">{{i.manufacturer}}</span>
@@ -19,14 +19,16 @@
     </ul>
 
     
-    <div class="card_button">
+    <div class="card_button" *ngIf="filter=='All'">
         <button type="submit" (click)="loadMore()">More</button>
-        <span style="font-size: smaller;font-weight: 300;">{{endOfCatalog}}</span>
+    </div>
+    <div class="card_button" *ngIf="filter!='All'">
+        <button type="submit" (click)="loadMoreFiltered()">More</button>
     </div>
 </div>
 
 
 <ng-template #elseBlock>
- <app-panel [panel]="panelSelected" [state]="showPanelDetails" (toogle)="showPanelDetails=$event"></app-panel>
+ <app-panel [panel]="panelSelected" [state]="showPanelDetails" (toogle)="dropdownStatus($event)"></app-panel>
 </ng-template>
 

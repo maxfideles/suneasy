@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { PanelsService} from 'src/app/services/panels.service';
 import { PanelData, PanelInfo} from 'src/app/models/panelData';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -29,17 +30,25 @@ export class PanelsComponent implements OnInit {
       manufacturer:""
     }
   
-  panelInfo: PanelInfo[]=[]
+  panelInfo: PanelInfo[] = []
 
-  @Input()
-  offset:number = 20
+  panelManufactories:any
+
+  page:number = 0
+
+  more:string = "All"
+
+  isDropdownShown!:boolean
 
 
-  constructor(private service: PanelsService) { }
+  constructor(private service: PanelsService) {
+    this.isDropdownShown = environment.aux;
+  }
 
   ngOnInit(): void {
 
-    this.getPanels()
+    this.getPanels();
+    this.getPanelManufactories();
 
     /*setTimeout(() => {
       console.log(this.panels.id)
@@ -59,35 +68,29 @@ export class PanelsComponent implements OnInit {
   }
 
   getPanels(){
-    this.service.getPanels().subscribe(
-      {
-        next: (response) => {
-        
-          this.panels = response.data
-          console.log(this.panels)
+    this.service.getPanels(this.page).subscribe((response) => {
+      response.data.forEach((a) => this.panelInfo.push(a));
 
-          let aux:any
-          let mod!: PanelData
-          let det:any
-          //this.panels.forEach((a) => {mod = (a.models)})
-            aux = this.panels[0].models[0].name
-            
-          console.log(aux)
 
-          for (let i = 0; i < this.panels.length; i++) {
-            for (let j = 0; j < this.panels[i].models.length; j++) {
-              
-              this.panelInfo.push(this.panels[i].models[j])
-              this.aux.push(this.panels[i].models[j])
-              
-            }
-            
-          }
-          this.sortPanels()
-          console.log(this.panelInfo)
-        }
+      if(Object.keys(response.data).length != 0){
+        this.page +=1;
+      }else{
+        alert("All Panels Were Loaded!");
+      }
 
-   })
+      
+
+    })
+
+    }
+
+    getPanelManufactories(){
+      this.service.getPanelManufactories().subscribe((response)=> {
+
+        console.log(response.id)
+        this.panelManufactories = response;
+
+      })
     }
 
     getManufacturerPanel(manufacturer:string){
@@ -130,10 +133,16 @@ export class PanelsComponent implements OnInit {
   }
 
   getPanelModelsFromManufacturerId(id:number){
-    this.service.getPanelModelsFromManufacturerId(id).subscribe((response) =>{
+    this.service.getPanelModelsFromManufacturerId(id,this.page).subscribe((response) =>{
 
 
-      this.panelInfo = response
+      response.forEach((a) => {this.panelInfo.push(a)})
+
+      if(Object.keys(response).length != 0){
+        this.page+= 1;
+      }else{
+        alert("All Panels Were Loaded!");
+      }
 
       console.log(this.panelInfo)
 
@@ -142,25 +151,25 @@ export class PanelsComponent implements OnInit {
 
   filterPanels(id:any){
     
-     this.offset=20
+    console.log(id)
 
    if(id!="All"){
-    var idmanufacturer : string = this.panels[id].manufacturer
+    this.panelInfo = [];
+    this.page=0;
+ 
+    this.getPanelModelsFromManufacturerId(id);
 
-    this.panelInfo = this.aux
-    console.log(this.panelInfo)
-    console.log(idmanufacturer)
-
-    this.panelInfo = this.aux.filter(a => a.manufacturer==idmanufacturer)
-    //this.getPanelModelsFromManufacturerId(idmanufacturer)
-    console.log(this.panelInfo)
+    this.more = id;
 
    }else{
-    this.panelInfo = this.aux
-    console.log(this.panelInfo)
+    this.panelInfo = [];
+    this.page = 0;
+
+    this.getPanels();
+
+    this.more = "All";
+
    }
-   this.sortPanels()
-    console.log(id)
     
 
   }

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { timeout } from 'rxjs';
 import { PanelInfo } from 'src/app/models/panelData';
+import { PanelsService } from 'src/app/services/panels.service';
 
 @Component({
   selector: 'app-card-panels',
@@ -8,14 +9,21 @@ import { PanelInfo } from 'src/app/models/panelData';
   styleUrls: ['./card-panels.component.css']
 })
 export class CardPanelsComponent implements OnInit {
+
  @Input()
   panel:PanelInfo[] =[]
 
   @Input()
-  offsetChild!:number
+  offsetChild!:any
 
   @Output()
-  offsetOutput = new EventEmitter()
+  allsetOutput = new EventEmitter()
+
+  @Output()
+  manufacturerOutput = new EventEmitter()
+
+@Output()
+dropdownShown = new EventEmitter()
 
   @Input()
   endOfCatalog!:string
@@ -23,8 +31,12 @@ export class CardPanelsComponent implements OnInit {
   showPanelDetails: boolean = false
   
   panelSelected!:PanelInfo | any
+
+
+  @Input()
+  filter:any
   
-  constructor() { }
+  constructor(private service: PanelsService) { }
 
   ngOnInit(): void {
   }
@@ -35,39 +47,29 @@ export class CardPanelsComponent implements OnInit {
      this.panelSelected = this.panel.find((a) => a.id==id)
      this.showPanelDetails = !this.showPanelDetails
 
+     this.dropdownShown.emit(!this.showPanelDetails);
+
     console.log(this.panelSelected)
 
   }
 
+  dropdownStatus(value:boolean){
+    this.showPanelDetails= value;
+    this.dropdownShown.emit(!this.showPanelDetails);
+
+  }
+
   loadMore(){
-
-    
-    if(this.offsetChild<this.panel.length){
-      this.offsetChild+=20
-      
-
-      console.log("CHILD "+this.offsetChild)
-
-        
-    }else if(this.offsetChild>this.panel.length){
-      
-      this.offsetChild=this.panel.length
-    
-      console.log(this.panel.length)
-      console.log(this.offsetChild+ "IGUAL")
-
-   }
-    else if(this.offsetChild==this.panel.length){
-      this.endOfCatalog = "It is everything we have based on your search"
-      
-      setTimeout(() => {
-      this.endOfCatalog = ""
-      },4000)
-      console.log(this.endOfCatalog + "Deleted!")
-      }
-
-      this.offsetOutput.emit(this.offsetChild)
+    console.log("LoadMore")
+      this.allsetOutput.emit()
     }
+
+  loadMoreFiltered(){
+    console.log("manufacturer")
+      this.manufacturerOutput.emit({id:this.filter})
+
+    }
+
   }
 
 

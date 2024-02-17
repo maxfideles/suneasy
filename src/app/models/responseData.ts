@@ -1,10 +1,10 @@
 import { InverterData } from "./inverterData";
-import { PanelData } from "./panelData";
+import { PanelData, PanelInfo } from "./panelData";
 
 export interface ResponseData {
     success:boolean,
     count:number,
-    data:[PanelData]
+    data:[PanelInfo]
 }
 
 export interface ResponseInverterData{
