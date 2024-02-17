@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  sunAPI: 'https://sunwaymono-production.up.railway.app/'
-
+  sunAPI: 'https://sunwaymono-production.up.railway.app/',
+  aux: true
 };
