@@ -195,6 +195,7 @@ export class InvertersComponent implements OnInit {
      this.getInverters()
 
      console.log(this.inverterInfo)
+     this.more = "All";
     }
     
      console.log(id)
