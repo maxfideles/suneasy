@@ -125,6 +125,11 @@ export class CitiesComponent implements OnInit {
             borderColor: '#238636',
             backgroundColor: '#238636',
             borderWidth: 2,
+            pointHoverRadius: 10,
+            pointHoverBackgroundColor: 'rgba(35,135,54,0.5)',
+            hoverBackgroundColor: 'rgba(35,135,54,0.5)',
+            hoverBorderColor: '#238636',
+            hoverBorderWidth : '1'
             
         },
         {
@@ -133,9 +138,12 @@ export class CitiesComponent implements OnInit {
             borderColor: '#2F81F7',
             backgroundColor: '#2F81F7',
             borderWidth: 2,
+            pointHoverRadius: 10,
+            pointHoverBackgroundColor: 'rgba(47,129,247,0.5)',
+            hoverBackgroundColor: 'rgba(47,129,247,0.5)',
+            hoverBorderColor: '#2F81F7',
+            hoverBorderWidth : '1'
             
-            
-
         },
         {
           label: 'Diffuse',
@@ -143,6 +151,11 @@ export class CitiesComponent implements OnInit {
           borderColor: '#ECF4D6',
           backgroundColor: '#ECF4D6',
           borderWidth: 2,
+          pointHoverRadius: 10,
+          pointHoverBackgroundColor: 'rgba(236,244,214,0.5)',
+          hoverBackgroundColor: 'rgba(236,244,214,0.5)',
+          hoverBorderColor: '#ECF4D6',
+          hoverBorderWidth : '1'
 
       }
       ]
@@ -154,8 +167,23 @@ export class CitiesComponent implements OnInit {
                 title: {
                   display: true,
                   text: "Wh/m2.day"
+                },
+                grid:{
+                  color: '#30363D',
+                  tickBorderDash: [1]
                 }
             },
+            x: {
+              
+              title: {
+                display: true,
+                text: "Month"
+              },
+              grid:{
+                color: '#30363D',
+                tickBorderDash: [1]
+              }
+          },
         },
         maintainAspectRatio: true,
         
