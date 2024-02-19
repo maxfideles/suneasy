@@ -133,7 +133,7 @@ export class PanelsComponent implements OnInit {
   }
 
   getPanelModelsFromManufacturerId(id:number){
-    this.service.getPanelModelsFromManufacturerId(id,this.page).subscribe((response) =>{
+    this.service.getPanelModelsFromManufacturerIdPaginated(id,this.page).subscribe((response) =>{
 
 
       response.forEach((a) => {this.panelInfo.push(a)})
