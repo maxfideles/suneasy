@@ -1,0 +1,34 @@
+.simuDetails_list > ul > li{
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border:#30363D solid 1px; 
+    border-radius: 0.5rem;
+    justify-content: space-between;
+    padding: .5rem 0 .5rem;
+
+    span{
+        
+        font-size: 12px;
+        background: none;
+    }
+    h4{
+        
+        font-size: 12px;
+        background: none;
+        font-weight: normal;
+    }
+}
+
+.simuDetails_list > ul > li:hover{
+        background-color: #161B22;
+}
+
+
+.simuDetails_list{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+}

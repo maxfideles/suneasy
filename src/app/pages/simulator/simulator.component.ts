@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Chart } from 'chart.js';
 import { CityData } from 'src/app/models/cityData';
 import { PanelData, PanelInfo } from 'src/app/models/panelData';
@@ -28,36 +28,104 @@ export class SimulatorComponent implements OnInit {
   aux:PanelInfo[]=[]
   panelSelectedId!:number
 
+  panelManufactories:any
+
   //system
-  consumption:number = 0
-  orientation:number = 1
-  inclination:number = 1
+  @Input()
+  consumption!:number
+  orientation!:number
+  inclination!:number
+  area:any|number = null
+  numModels:any|number = null
+
+  isAreaShown:boolean = false;
+  isNumModelsShown:boolean = false;
+  isShownResults:boolean = false;
+  simulationType:string = "1";
 
   //chart
   chart:any
   chartStyle:any = 'bar'
+  beginAtZeroChart:any = true
 
   //Simulated
-
   responseSimulation!: simulatorResponse
 
-  constructor(private simulateService: SimulatorService ,private cityService: CitiesService, private panelService: PanelsService) { }
+  constructor(private simulateService: SimulatorService ,private cityService: CitiesService, private panelService: PanelsService) { 
+    
+    window.addEventListener("resize",this.windowSize)
+    
+    this.responseSimulation =  {
+      genM: [1],
+      genT: 2333,
+      numMod:4,
+      potSys:2,
+      minArea: 3,
+      modelsWeight: 23,
+      ori: 12,
+      inc: 1
+  }
+  }
 
   ngOnInit(): void {
     this.states = this.citiesAndStates.estados
-    this.getCity("Chuí","Rio Grande do Sul")
-    this.getPanels()
+    //this.getCity("Chuí","Rio Grande do Sul")
+    this.getCity("Itumbiara","Goiás");
+    this.getPanelManufactores()
+    this.simulateBy("1")
     
   }
 
+  windowSize(){
+    var width = document.body.clientWidth;
+    var height = document.body.clientHeight;
+
+    console.log(`w: ${width}, h: ${height}`)
+
+  }
+
   simulateSystem(){
+
+    if(!this.citySelected){
+      alert("Select the City to simulate.");
+      return
+    }else if(!this.panelSelectedId){
+      alert("Select a Solar Panel")
+      return
+    }else if(this.orientation<0 || this.orientation>359 || !this.orientation){
+      alert("The orientation must to be between 0° and 359°.")
+      return
+    }else if(this.inclination>27 || this.inclination<0 || !this.inclination){
+      alert("The inclination must to be between 0° and 27°.")
+      return
+    }else if(this.consumption<=3000 || !this.consumption){
+      alert("Insert a consumption over 3000kWh.");
+      return
+    }else if(this.simulationType=="2" && (!this.area || this.area<5)){
+      alert("Insert an area over 5m².");
+      return
+    }else if(this.simulationType=="3" && (!this.numModels || this.numModels<=2)){
+      alert("Insert a number of panels over 2.");
+      return
+    }
+
+    if(this.orientation == 0){
+      this.orientation = 0.01
+    }
+
+    this.isShownResults = true;
 
     var data: simulatorData = {
       panelId:this.panelSelectedId,
       cityId:this.cityFetched.city.id,
       cons:this.consumption,
       inc:this.inclination,
-      ori:this.orientation}
+      ori:this.orientation,
+      areaRequest:this.area,
+      numModels:this.numModels
+    }
+
+    
 
     this.simulateService.simulate(data).subscribe((response) => {
 
@@ -67,27 +135,17 @@ export class SimulatorComponent implements OnInit {
       console.log(`Gen Anual: ${response.genT}`)
       console.log(`Pot Sys: ${response.potSys}`)
       console.log(`Num Mod: ${response.numMod}`)
+      console.log(`Area Min: ${response.minArea}`)
+      console.log(`Peso Tot Mod: ${response.modelsWeight}`)
+      console.log(`Orient: ${response.ori}`)
+      console.log(`Incl: ${response.inc}`)
 
+
+      
       this.createChart()
+
     })
   }
-
-con(cons:any){
-  this.consumption = cons.target.value
-  console.log(`Con: ${this.consumption}`)
-}
-ori(ori:any){
-  this.orientation = ori.target.value
-  if(this.orientation==0) this.orientation=1
-  console.log(`Ori: ${this.orientation}`)
-}
-
-inc(inc:any){
-  this.inclination = inc.target.value
-  if(this.inclination==0) this.inclination=1
-
-  console.log(`Inc: ${this.inclination}`)
-}
 
 
   getCities(stateSelected:string){
@@ -103,6 +161,9 @@ inc(inc:any){
         console.log(this.cities)
       }
 
+      this.citySelected = '';
+      console.log(this.citySelected.length)
+
     })
 
     console.log(stateSelected)
@@ -112,6 +173,7 @@ inc(inc:any){
   selectCity(city:string){
 
     this.citySelected = city
+    console.log(this.citySelected.length)
     console.log(`${this.citySelected} - ${this.stateSelected}`)
 
     this.getCity(this.citySelected,this.stateSelected)
@@ -138,8 +200,9 @@ inc(inc:any){
   }
 
 
-  getPanels(){
-    this.panelService.getPanels(0).subscribe(
+  getPanelManufactores(){
+
+   /* this.panelService.getPanels(0).subscribe(
       {
         next: (response) => {
         
@@ -166,34 +229,74 @@ inc(inc:any){
           
         }
 
-   })
-    }
+   })*/
+   
+   this.panelService.getPanelManufactories().subscribe((response) => {
 
-    selectPanel(id:any){
-      
-      this.panelSelectedId = id
-    }
+    this.panelManufactories = response;
+    console.log(this.panelManufactories)
+
+   })
+   
+  }
+
 
     filterPanels(id:any){
  
       console.log(id)
-      var idmanufacturer : string = this.panels[id].manufacturer
-      this.panelInfo = this.aux
-      this.panelInfo = this.aux.filter(a => a.manufacturer==idmanufacturer)
+      //var idmanufacturer : string = this.panels[id].manufacturer
+      //this.panelInfo = this.aux
+      //this.panelInfo = this.aux.filter(a => a.manufacturer==idmanufacturer)
 
-    this.sortPanels()
-     console.log(id)
+      this.panelService.getPanelModelsFromManufacturerId(id).subscribe((response) => {
+
+        this.panelInfo = response;
+        console.log(this.panelInfo[0].maximumPower);
+
+      })
+
+    //this.sortPanels()
+     //console.log(id)
+     this.panelSelectedId=0;
+     console.log(this.panelSelectedId)
    }
 
-   sortPanels(){
-    console.log("===Sorting===")
 
-    this.panelInfo = this.panelInfo.sort((a,b) => a.maximumPower - b.maximumPower)
-   // this.panels = this.panels.sort((a,b)=> a.manufacturer.localeCompare(b.manufacturer))
+   selectPanel(id:any){
+        
+    this.panelSelectedId = id;
+    console.log(this.panelSelectedId)
 
-    console.log(this.panelInfo)
-    console.log("Sorted")
+    var panelSel = this.panelInfo.filter(a => a.id==id);
 
+    console.log(this.panelSelectedId)
+    console.log(panelSel);
+
+  }
+
+  simulateBy(id:string){
+
+    this.simulationType = id;
+
+    if(id=="1"){
+      this.isAreaShown = false;
+      this.area = null;
+      this.isNumModelsShown = false;
+      this.numModels = null;
+    } else if (id=="2"){
+      this.isAreaShown = true;
+      this.area = null;
+      this.isNumModelsShown = false;
+      this.numModels = null;
+    } else if (id=="3"){
+      this.isAreaShown = false;
+      this.area = null;
+      this.isNumModelsShown = true;
+      this.numModels = null;
+    }
+
+
+    console.log(id);
   }
 
   createChart(){
@@ -223,7 +326,12 @@ inc(inc:any){
             data: this.responseSimulation.genM,
             borderColor: '#238636',
             backgroundColor: '#238636',
-            borderWidth: 2,  
+            borderWidth: 2,
+            pointHoverRadius: 10,
+            pointHoverBackgroundColor: 'rgba(35,135,54,0.5)',
+            hoverBackgroundColor: 'rgba(35,135,54,0.5)',
+            hoverBorderColor: '#238636',
+            hoverBorderWidth : '1'  
         },
         {
             label: "Consumption",
@@ -231,18 +339,38 @@ inc(inc:any){
             borderColor: '#2F81F7',
             backgroundColor: '#2F81F7',
             borderWidth: 2,
+            pointHoverRadius: 10,
+            pointHoverBackgroundColor: 'rgba(47,129,247,0.5)',
+            hoverBackgroundColor: 'rgba(47,129,247,0.5)',
+            hoverBorderColor: '#2F81F7',
+            hoverBorderWidth : '1'
         }
       ]
     },
     options: {
         scales: {
             y: {
-                beginAtZero: true,
+                beginAtZero: this.beginAtZeroChart,
                 title: {
                   display: true,
                   text: "kWh"
+                },
+                grid:{
+                  color: '#30363D',
+                  tickBorderDash: [1]
                 }
             },
+            x: {
+              
+              title: {
+                display: true,
+                text: "Month"
+              },
+              grid:{
+                color: '#30363D',
+                tickBorderDash: [1]
+              }
+          },
         },
         maintainAspectRatio: true,
         

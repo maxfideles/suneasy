@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CitiesService } from '../../services/cities.service'
 import { CityData } from '../../models/cityData'
 import { Chart } from 'chart.js/auto'
@@ -16,7 +16,7 @@ export class CitiesComponent implements OnInit {
   cities!: string[]
   states!: string[] | any
 
-  chart: any
+  chart!: Chart
   stateSelected!: string
   citySelected!: string
 
@@ -24,21 +24,57 @@ export class CitiesComponent implements OnInit {
   mapLink!: string
 
   
-
+  //chart
   chartStyle: any = 'line'
+  fontSizeChart:number = 14
+  borderWidth:number = 2
+  showLegend:boolean = true
+  charPosition:string = 'top'
 
-  constructor(private service: CitiesService, private sanitizer:DomSanitizer) { }
+
+  constructor(private service: CitiesService, private sanitizer:DomSanitizer, private cdRef: ChangeDetectorRef) { 
+    window.addEventListener("resize",this.windowSize)
+
+  }
 
   ngOnInit(): void {
 
+    
+    
     console.log(this.citiesAndStates.estados)
     this.states = this.citiesAndStates.estados
     console.log(this.states)
     this.getCity("itumbiara","goiás")
+    this.windowSize()
     //setTimeout(()=>{this.createChart()},1000)
     
   }
+  
+  windowSize(){
+    var width = document.body.clientWidth;
+    var height = document.body.clientHeight;
 
+    if(width<=425 && width>375){
+      this.fontSizeChart = 7
+      this.borderWidth = 1
+      this.chartStyle = 'bar'
+      this.charPosition = 'bottom'
+      this.cdRef.detectChanges()
+    }else if(width<=375 && width>325){
+      this.fontSizeChart = 6
+      this.borderWidth = 1
+      this.chartStyle = 'bar'
+      this.charPosition = 'bottom'
+    }else if(width<325){
+      this.fontSizeChart = 6
+      this.borderWidth = 1
+      this.chartStyle = 'bar'
+      this.showLegend = false
+    }
+
+    console.log(`w: ${width}, h: ${height}`)
+
+  }
 
   getCity(cityName:string,state:string):void{
     console.log(`state: ${state}`)
@@ -113,7 +149,7 @@ export class CitiesComponent implements OnInit {
     console.log("ASDASD")
     console.log(a)
 
-    Chart.defaults.font.size = 14
+    Chart.defaults.font.size = this.fontSizeChart
 
   this.chart = new Chart("MyChart", {
     type: this.chartStyle,
@@ -124,12 +160,12 @@ export class CitiesComponent implements OnInit {
             data: horizontal,
             borderColor: '#238636',
             backgroundColor: '#238636',
-            borderWidth: 2,
+            borderWidth: this.borderWidth,
             pointHoverRadius: 10,
             pointHoverBackgroundColor: 'rgba(35,135,54,0.5)',
             hoverBackgroundColor: 'rgba(35,135,54,0.5)',
             hoverBorderColor: '#238636',
-            hoverBorderWidth : '1'
+            hoverBorderWidth : 1
             
         },
         {
@@ -137,12 +173,12 @@ export class CitiesComponent implements OnInit {
             data: tilted,
             borderColor: '#2F81F7',
             backgroundColor: '#2F81F7',
-            borderWidth: 2,
+            borderWidth: this.borderWidth,
             pointHoverRadius: 10,
             pointHoverBackgroundColor: 'rgba(47,129,247,0.5)',
             hoverBackgroundColor: 'rgba(47,129,247,0.5)',
             hoverBorderColor: '#2F81F7',
-            hoverBorderWidth : '1'
+            hoverBorderWidth : 1
             
         },
         {
@@ -150,15 +186,14 @@ export class CitiesComponent implements OnInit {
           data: diffuse,
           borderColor: '#ECF4D6',
           backgroundColor: '#ECF4D6',
-          borderWidth: 2,
+          borderWidth: this.borderWidth,
           pointHoverRadius: 10,
           pointHoverBackgroundColor: 'rgba(236,244,214,0.5)',
           hoverBackgroundColor: 'rgba(236,244,214,0.5)',
           hoverBorderColor: '#ECF4D6',
-          hoverBorderWidth : '1'
+          hoverBorderWidth : 1
 
-      }
-      ]
+      }]
     },
     options: {
         scales: {
@@ -176,7 +211,7 @@ export class CitiesComponent implements OnInit {
             x: {
               
               title: {
-                display: true,
+                display: false,
                 text: "Month"
               },
               grid:{
@@ -186,10 +221,20 @@ export class CitiesComponent implements OnInit {
           },
         },
         maintainAspectRatio: true,
+        plugins:{
+          legend: {
+            display: this.showLegend,
+            position: this.charPosition,
+            boxWidth: 10,
+            font:{
+              weight: 'lighter'
+            }
+         }
+        }
         
-        
-    }
-  });
+      }    
+    
+    });
 
 
   }
