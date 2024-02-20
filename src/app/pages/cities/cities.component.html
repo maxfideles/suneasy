@@ -34,9 +34,9 @@
 <div class="cities-chart-style">
 
     <select (change)="changeChargeStyle(style.value)" #style class="dropdown2">
-        <option value="none" selected disabled hidden>Select an Option</option> 
+        <option value="line" selected disabled hidden>{{capitalizeFirstLetter(chartStyle)}}</option> 
         <option value="bar">Bar</option>
-        <option value="line" selected="true">Line</option>
+        <option value="line">Line</option>
     </select>
 
 </div>

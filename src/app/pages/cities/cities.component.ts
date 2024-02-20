@@ -25,21 +25,26 @@ export class CitiesComponent implements OnInit {
 
   
   //chart
-  chartStyle: any = 'line'
+  chartStyle: any
   fontSizeChart:number = 14
   borderWidth:number = 2
   showLegend:boolean = true
+  showMonthLabel:boolean = true
   charPosition:string = 'top'
 
 
   constructor(private service: CitiesService, private sanitizer:DomSanitizer, private cdRef: ChangeDetectorRef) { 
     window.addEventListener("resize",this.windowSize)
 
+    if(window.innerWidth<=475){
+      this.chartStyle = 'bar'
+    }else{
+      this.chartStyle = 'line' 
+    }
+
   }
 
   ngOnInit(): void {
-
-    
     
     console.log(this.citiesAndStates.estados)
     this.states = this.citiesAndStates.estados
@@ -51,6 +56,7 @@ export class CitiesComponent implements OnInit {
   }
   
   windowSize(){
+
     var width = document.body.clientWidth;
     var height = document.body.clientHeight;
 
@@ -59,22 +65,30 @@ export class CitiesComponent implements OnInit {
       this.borderWidth = 1
       this.chartStyle = 'bar'
       this.charPosition = 'bottom'
-      this.cdRef.detectChanges()
+      this.showMonthLabel = false
+      return
     }else if(width<=375 && width>325){
       this.fontSizeChart = 6
       this.borderWidth = 1
       this.chartStyle = 'bar'
       this.charPosition = 'bottom'
+      this.showMonthLabel = false
+      return
     }else if(width<325){
       this.fontSizeChart = 6
       this.borderWidth = 1
       this.chartStyle = 'bar'
       this.showLegend = false
+      this.showMonthLabel = false
+      return
     }
 
-    console.log(`w: ${width}, h: ${height}`)
-
   }
+
+  capitalizeFirstLetter(string:string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 
   getCity(cityName:string,state:string):void{
     console.log(`state: ${state}`)
@@ -208,10 +222,9 @@ export class CitiesComponent implements OnInit {
                   tickBorderDash: [1]
                 }
             },
-            x: {
-              
+            x: {            
               title: {
-                display: false,
+                display: this.showMonthLabel ,
                 text: "Month"
               },
               grid:{
