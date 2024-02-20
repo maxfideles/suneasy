@@ -147,7 +147,7 @@ button:active{
 }
 
 .canva{
-    width: 60%;
+    width: 80%;
     border: #30363D 2px solid; 
     border-radius: 1rem;
     margin: auto;
@@ -175,7 +175,7 @@ label span{
 details {
     border: 1px solid #30363D;
     border-radius: 4px;
-    width: 80%;
+    width: 70%;
 
     margin: 2rem 0 2rem;
   }
@@ -212,4 +212,10 @@ summary {
     padding: 0.4rem;
     list-style-type: none;
     cursor: pointer;
+}
+
+@media (max-width:475px) {
+    details{
+        width: 90%;
+    }
 }

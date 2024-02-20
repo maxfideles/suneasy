@@ -43,10 +43,15 @@ export class SimulatorComponent implements OnInit {
   isShownResults:boolean = false;
   simulationType:string = "1";
 
+  chart!: Chart
   //chart
-  chart:any
-  chartStyle:any = 'bar'
-  beginAtZeroChart:any = true
+  beginAtZeroChart:boolean = false
+  chartStyle: any = 'line'
+  fontSizeChart:number = 14
+  borderWidth:number = 2
+  showLegend:boolean = true
+  charPosition:string = 'top'
+  showMonthLabel:boolean = true
 
   //Simulated
   responseSimulation!: simulatorResponse
@@ -65,6 +70,8 @@ export class SimulatorComponent implements OnInit {
       ori: 12,
       inc: 1
   }
+
+  this.windowSize()
   }
 
   ngOnInit(): void {
@@ -74,15 +81,39 @@ export class SimulatorComponent implements OnInit {
     this.getPanelManufactores()
     this.simulateBy("1")
     
+    
   }
 
   windowSize(){
     var width = document.body.clientWidth;
     var height = document.body.clientHeight;
+    
+
+    if(width<=425 && width>375){
+      this.fontSizeChart = 7
+      this.borderWidth = 1
+      this.chartStyle = 'bar'
+      this.charPosition = 'bottom'
+      this.showMonthLabel = false
+    }else if(width<=375 && width>325){
+      this.fontSizeChart = 6
+      this.borderWidth = 1
+      this.chartStyle = 'bar'
+      this.charPosition = 'bottom'
+      this.showLegend = false
+      this.showMonthLabel = false
+    }else if(width<325){
+      this.fontSizeChart = 6
+      this.borderWidth = 1
+      this.chartStyle = 'bar'
+      this.showLegend = false
+      this.showMonthLabel = false
+    }
 
     console.log(`w: ${width}, h: ${height}`)
 
   }
+
 
   simulateSystem(){
 
@@ -315,7 +346,7 @@ export class SimulatorComponent implements OnInit {
 
     console.log("ASDASD")
 
-    Chart.defaults.font.size = 14
+    Chart.defaults.font.size = this.fontSizeChart
 
   this.chart = new Chart("MyChart", {
     type: this.chartStyle,
@@ -326,7 +357,7 @@ export class SimulatorComponent implements OnInit {
             data: this.responseSimulation.genM,
             borderColor: '#238636',
             backgroundColor: '#238636',
-            borderWidth: 2,
+            borderWidth: this.borderWidth,
             pointHoverRadius: 10,
             pointHoverBackgroundColor: 'rgba(35,135,54,0.5)',
             hoverBackgroundColor: 'rgba(35,135,54,0.5)',
@@ -338,7 +369,7 @@ export class SimulatorComponent implements OnInit {
             data: consumption,
             borderColor: '#2F81F7',
             backgroundColor: '#2F81F7',
-            borderWidth: 2,
+            borderWidth: this.borderWidth,
             pointHoverRadius: 10,
             pointHoverBackgroundColor: 'rgba(47,129,247,0.5)',
             hoverBackgroundColor: 'rgba(47,129,247,0.5)',
@@ -360,10 +391,9 @@ export class SimulatorComponent implements OnInit {
                   tickBorderDash: [1]
                 }
             },
-            x: {
-              
+            x: {             
               title: {
-                display: true,
+                display: this.showMonthLabel,
                 text: "Month"
               },
               grid:{
@@ -373,6 +403,16 @@ export class SimulatorComponent implements OnInit {
           },
         },
         maintainAspectRatio: true,
+        plugins:{
+          legend: {
+            display: this.showLegend,
+            position: this.charPosition,
+            boxWidth: 10,
+            font:{
+              weight: 'lighter'
+            }
+         }
+        }
         
         
     }
