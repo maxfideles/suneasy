@@ -86,3 +86,9 @@ button:active{
     border-color: #7C8590;
     background-color: #238636;
 }
+
+@media (max-width: 960px){
+    .card{
+        justify-content: center;
+    }
+}
