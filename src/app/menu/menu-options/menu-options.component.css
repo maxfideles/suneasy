@@ -20,3 +20,16 @@
     font-weight: normal;
     color: #238636;
 }
+
+#home{
+    display: none;
+}
+
+@media (max-width:320px){
+    a{
+        font-size: 10px;
+    }
+    #home{
+        display: inline-block;
+    }
+}
