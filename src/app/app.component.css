@@ -45,3 +45,12 @@ img{
     width: 30px;
     margin-right: 0.5rem;
 }
+
+@media(max-width: 425px){
+    span{
+        font-size: 10px;
+    }
+    .footer{
+        margin-top: 2rem;
+    }
+}

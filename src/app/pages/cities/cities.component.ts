@@ -1,9 +1,12 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { NgZone, Component, OnInit, HostListener, ChangeDetectorRef, Inject, signal } from '@angular/core';
 import { CitiesService } from '../../services/cities.service'
 import { CityData } from '../../models/cityData'
 import { Chart } from 'chart.js/auto'
-import { ConstantPool } from '@angular/compiler';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser'
+import { fromEvent, Observable, Subscription } from "rxjs";
+
+
+
 
 @Component({
   selector: 'app-cities',
@@ -11,6 +14,9 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser'
   styleUrls: ['./cities.component.css']
 })
 export class CitiesComponent implements OnInit {
+
+  resizeObservable!: Observable<Event>
+  resizeSubscription!: Subscription
 
   cityFetched: CityData | any 
   cities!: string[]
@@ -26,18 +32,27 @@ export class CitiesComponent implements OnInit {
   
   //chart
   chartStyle: any
-  fontSizeChart:number = 14
+  fontSizeChart = signal(14)
   borderWidth:number = 2
   showLegend:boolean = true
   showMonthLabel:boolean = true
   charPosition:string = 'top'
+  pointRadius:number =  3
+  pointHoverRadius:number =  10
 
+  //
+  zoomMap:string = '14'
 
-  constructor(private service: CitiesService, private sanitizer:DomSanitizer, private cdRef: ChangeDetectorRef) { 
-    window.addEventListener("resize",this.windowSize)
+  wid:number =0
+
+  constructor(private service: CitiesService, private sanitizer:DomSanitizer, private nZone:NgZone) { 
+
+    this.cityFetched = {city:{temp: 32, lat: -29.6895,lon: -53.7923, name: "Santa Maria", state: "Rio Grande do Sul"}}
+
 
     if(window.innerWidth<=475){
       this.chartStyle = 'bar'
+      this.zoomMap = '12'
     }else{
       this.chartStyle = 'line' 
     }
@@ -45,7 +60,60 @@ export class CitiesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    var i = 0;
+
+    window.onresize = (e) => {
+      this.nZone.run(() => {
+
+        var width =  document.body.clientWidth;
+        
+
+        console.log("Width: " + width);
+        console.log("Height: " + window.innerHeight);
+
+        if(width > 480){
+          this.fontSizeChart.set(14)
+          this.borderWidth= 2
+          this.showLegend = true
+          this.showMonthLabel = true
+          this.charPosition = 'top'
+          this. pointRadius =  3
+          this.pointHoverRadius =  10
+          this.chartStyle = 'line'
+
+          if(i!=1){
+            console.log(`vai gerar ${i}`)
+            this.createChart();
+          }
+
+          console.log(`passando ${i}`)
+          i=1;
+          
+      }else if(width>=375 && width <= 425){
+            this.windowSize()
+
+            if(i!=2){
+              console.log(`vai gerar ${i}`)
+              this.createChart();
+            }
+            console.log(`passando ${i}`)
+            i=2;
+
+      }else if(width<375){
+            this.windowSize()
+
+            if(i!=3){
+              console.log(`vai gerar ${i}`)
+              this.createChart();
+            }
+            console.log(`passando ${i}`)
+            i=3;
+        }
+      })
+    }
     
+    //window.addEventListener("resize", )
+
     console.log(this.citiesAndStates.estados)
     this.states = this.citiesAndStates.estados
     console.log(this.states)
@@ -54,32 +122,42 @@ export class CitiesComponent implements OnInit {
     //setTimeout(()=>{this.createChart()},1000)
     
   }
-  
-  windowSize(){
+
+
+ windowSize(){
 
     var width = document.body.clientWidth;
     var height = document.body.clientHeight;
-
+    console.log("ASD")
+    
     if(width<=425 && width>375){
-      this.fontSizeChart = 7
+      this.fontSizeChart.set(7)
+      this.showLegend = true
       this.borderWidth = 1
       this.chartStyle = 'bar'
       this.charPosition = 'bottom'
       this.showMonthLabel = false
+      this.pointRadius =  1.5
+      this.pointHoverRadius =  5
       return
     }else if(width<=375 && width>325){
-      this.fontSizeChart = 6
+      this.fontSizeChart.set(6)
+      this.showLegend = true
       this.borderWidth = 1
       this.chartStyle = 'bar'
       this.charPosition = 'bottom'
       this.showMonthLabel = false
+      this.pointRadius =  1.5
+      this.pointHoverRadius =  5
       return
     }else if(width<325){
-      this.fontSizeChart = 6
+      this.fontSizeChart.set(6)
       this.borderWidth = 1
       this.chartStyle = 'bar'
       this.showLegend = false
       this.showMonthLabel = false
+      this.pointRadius =  1.5
+      this.pointHoverRadius =  5
       return
     }
 
@@ -108,8 +186,7 @@ export class CitiesComponent implements OnInit {
       let cityLat = this.cityFetched.city.lat
       let cityLon = this.cityFetched.city.lon
       let api= "AIzaSyA0_-cVwh5M9hBWaPghzOHcJ5sGccJt8rA"
-      this.mapLink = `https://www.google.com/maps/embed/v1/place?key=AIzaSyA0_-cVwh5M9hBWaPghzOHcJ5sGccJt8rA&q=${cityLat},${cityLon}&zoom=14`
-    
+      this.mapLink = `https://www.google.com/maps/embed/v1/place?key=AIzaSyA0_-cVwh5M9hBWaPghzOHcJ5sGccJt8rA&q=${cityLat},${cityLon}&zoom=${this.zoomMap}`
       this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.mapLink);
    
     
@@ -163,7 +240,8 @@ export class CitiesComponent implements OnInit {
     console.log("ASDASD")
     console.log(a)
 
-    Chart.defaults.font.size = this.fontSizeChart
+    Chart.defaults.font.size = this.fontSizeChart()
+
 
   this.chart = new Chart("MyChart", {
     type: this.chartStyle,
@@ -175,7 +253,8 @@ export class CitiesComponent implements OnInit {
             borderColor: '#238636',
             backgroundColor: '#238636',
             borderWidth: this.borderWidth,
-            pointHoverRadius: 10,
+            pointRadius: this.pointRadius,
+            pointHoverRadius: this.pointHoverRadius,
             pointHoverBackgroundColor: 'rgba(35,135,54,0.5)',
             hoverBackgroundColor: 'rgba(35,135,54,0.5)',
             hoverBorderColor: '#238636',
@@ -188,7 +267,8 @@ export class CitiesComponent implements OnInit {
             borderColor: '#2F81F7',
             backgroundColor: '#2F81F7',
             borderWidth: this.borderWidth,
-            pointHoverRadius: 10,
+            pointRadius: this.pointRadius,
+            pointHoverRadius: this.pointHoverRadius,
             pointHoverBackgroundColor: 'rgba(47,129,247,0.5)',
             hoverBackgroundColor: 'rgba(47,129,247,0.5)',
             hoverBorderColor: '#2F81F7',
@@ -201,7 +281,8 @@ export class CitiesComponent implements OnInit {
           borderColor: '#ECF4D6',
           backgroundColor: '#ECF4D6',
           borderWidth: this.borderWidth,
-          pointHoverRadius: 10,
+          pointRadius: this.pointRadius,
+          pointHoverRadius: this.pointHoverRadius,
           pointHoverBackgroundColor: 'rgba(236,244,214,0.5)',
           hoverBackgroundColor: 'rgba(236,244,214,0.5)',
           hoverBorderColor: '#ECF4D6',
