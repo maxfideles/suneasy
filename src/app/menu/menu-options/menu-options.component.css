@@ -33,3 +33,12 @@
         display: inline-block;
     }
 }
+
+@media (max-width:330px){
+    a{
+        font-size: 10px;
+    }
+    #home{
+        display: inline-block;
+    }
+}
