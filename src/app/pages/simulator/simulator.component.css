@@ -214,8 +214,19 @@ summary {
     cursor: pointer;
 }
 
+.detailsres{
+    max-width: 50%;
+    min-width: none;
+    margin: auto; 
+    padding: 1rem;
+}
+
 @media (max-width:475px) {
-    details{
+    .canva{
         width: 90%;
     }
+    .detailsres{
+        max-width: 60%;
+    }
+
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, NgZone, OnInit } from '@angular/core';
 import { Chart } from 'chart.js';
 import { CityData } from 'src/app/models/cityData';
 import { PanelData, PanelInfo } from 'src/app/models/panelData';
@@ -45,41 +45,98 @@ export class SimulatorComponent implements OnInit {
 
   chart!: Chart
   //chart
-  beginAtZeroChart:boolean = false
+  beginAtZeroChart:boolean = true
   chartStyle: any = 'line'
   fontSizeChart:number = 14
   borderWidth:number = 2
   showLegend:boolean = true
   charPosition:string = 'top'
   showMonthLabel:boolean = true
+  pointRadius:number =  2
+  pointHoverRadius:number =  10
 
   //Simulated
   responseSimulation!: simulatorResponse
 
-  constructor(private simulateService: SimulatorService ,private cityService: CitiesService, private panelService: PanelsService) { 
+  constructor(private simulateService: SimulatorService ,private cityService: CitiesService, private panelService: PanelsService, private nZone: NgZone) { 
     
-    window.addEventListener("resize",this.windowSize)
-    
-    this.responseSimulation =  {
-      genM: [1],
-      genT: 2333,
-      numMod:4,
-      potSys:2,
-      minArea: 3,
-      modelsWeight: 23,
-      ori: 12,
-      inc: 1
-  }
 
-  this.windowSize()
   }
 
   ngOnInit(): void {
+
+    var i = 0;
+
+    window.onresize = (e) => {
+      this.nZone.run(() => {
+
+        var width =  document.body.clientWidth;
+        
+
+        console.log("Width: " + width);
+        console.log("Height: " + window.innerHeight);
+
+        if(width > 600){
+          this.fontSizeChart = 14
+          this.borderWidth= 2
+          this.showLegend = true
+          this.showMonthLabel = true
+          this.charPosition = 'top'
+          this. pointRadius =  3
+          this.pointHoverRadius =  10
+          this.chartStyle = 'line'
+
+          if(i!=1){
+            console.log(`vai gerar ${i}`)
+            this.createChart();
+          }
+
+          console.log(`passando ${i}`)
+          i=1;
+          
+      }else if(width <= 600 && width>475){
+            this.windowSize()
+
+            if(i!=2){
+              console.log(`vai gerar ${i}`)
+              this.createChart();
+            }
+            console.log(`passando ${i}`)
+            i=2;
+
+      }else if(width<=475 && width>325){
+            this.windowSize()
+
+            if(i!=3){
+              console.log(`vai gerar ${i}`)
+              this.createChart();
+            }
+            console.log(`passando ${i}`)
+            i=3;
+        }else if(width <=325){
+          this.windowSize();
+
+          if(i!=4){
+              console.log(`vai gerar ${i} `);
+              this.createChart();
+          }
+          console.log(`passando por ${i}`);
+          i=4
+          
+
+        }
+      })
+    }
+
+
+
     this.states = this.citiesAndStates.estados
     //this.getCity("Chuí","Rio Grande do Sul")
     this.getCity("Itumbiara","Goiás");
     this.getPanelManufactores()
     this.simulateBy("1")
+
+    this.windowSize();
     
     
   }
@@ -89,25 +146,31 @@ export class SimulatorComponent implements OnInit {
     var height = document.body.clientHeight;
     
 
-    if(width<=425 && width>375){
-      this.fontSizeChart = 7
+    if(width<=600 && width>475){
+      this.fontSizeChart = 6
       this.borderWidth = 1
       this.chartStyle = 'bar'
       this.charPosition = 'bottom'
       this.showMonthLabel = false
-    }else if(width<=375 && width>325){
+      this.pointRadius =  1.5
+      this.pointHoverRadius =  5
+    }else if(width<=475 && width>325){
       this.fontSizeChart = 6
       this.borderWidth = 1
       this.chartStyle = 'bar'
       this.charPosition = 'bottom'
       this.showLegend = false
       this.showMonthLabel = false
+      this.pointRadius =  1.5
+      this.pointHoverRadius =  5
     }else if(width<325){
       this.fontSizeChart = 6
       this.borderWidth = 1
       this.chartStyle = 'bar'
       this.showLegend = false
       this.showMonthLabel = false
+      this.pointRadius =  1.5
+      this.pointHoverRadius =  5
     }
 
     console.log(`w: ${width}, h: ${height}`)
@@ -353,28 +416,32 @@ export class SimulatorComponent implements OnInit {
     data: {
         labels: months,
         datasets: [{
+          label: "Consumption",
+          data: consumption,
+          type: 'line',
+          borderColor: '#ECF4D6',
+          backgroundColor: '#ECF4D6',
+          borderWidth: this.borderWidth,
+          pointRadius: this.pointRadius,
+          pointHoverRadius: this.pointHoverRadius,
+          pointHoverBackgroundColor: 'rgba(236,244,214,0.5)',
+          hoverBackgroundColor: 'rgba(236,244,214,0.5)',
+          hoverBorderColor: '#ECF4D6',
+          hoverBorderWidth : '1'
+        },
+        {
             label:'Generation',
+            type: 'bar',
             data: this.responseSimulation.genM,
             borderColor: '#238636',
             backgroundColor: '#238636',
             borderWidth: this.borderWidth,
-            pointHoverRadius: 10,
+            pointRadius: this.pointRadius,
+            pointHoverRadius: this.pointHoverRadius,
             pointHoverBackgroundColor: 'rgba(35,135,54,0.5)',
             hoverBackgroundColor: 'rgba(35,135,54,0.5)',
             hoverBorderColor: '#238636',
             hoverBorderWidth : '1'  
-        },
-        {
-            label: "Consumption",
-            data: consumption,
-            borderColor: '#2F81F7',
-            backgroundColor: '#2F81F7',
-            borderWidth: this.borderWidth,
-            pointHoverRadius: 10,
-            pointHoverBackgroundColor: 'rgba(47,129,247,0.5)',
-            hoverBackgroundColor: 'rgba(47,129,247,0.5)',
-            hoverBorderColor: '#2F81F7',
-            hoverBorderWidth : '1'
         }
       ]
     },
@@ -411,8 +478,9 @@ export class SimulatorComponent implements OnInit {
             font:{
               weight: 'lighter'
             }
-         }
+          },
         }
+        
         
         
     }
