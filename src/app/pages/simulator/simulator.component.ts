@@ -186,10 +186,10 @@ export class SimulatorComponent implements OnInit {
     }else if(!this.panelSelectedId){
       alert("Select a Solar Panel")
       return
-    }else if(this.orientation<0 || this.orientation>359 || !this.orientation){
+    }else if(this.orientation<0 || this.orientation>359 || this.orientation==null){
       alert("The orientation must to be between 0° and 359°.")
       return
-    }else if(this.inclination>27 || this.inclination<0 || !this.inclination){
+    }else if(this.inclination>27 || this.inclination<0 || this.inclination==null){
       alert("The inclination must to be between 0° and 27°.")
       return
     }else if(this.consumption<=3000 || !this.consumption){
@@ -203,23 +203,41 @@ export class SimulatorComponent implements OnInit {
       return
     }
 
+    var oriSim;
+    var incSim;
+
     if(this.orientation == 0){
-      this.orientation = 0.01
+      this.orientation = 0
+      oriSim = 0.01;
+    }else{
+      oriSim = this.parseInput(this.orientation);
+    }
+
+    if(this.inclination==0){
+      
+      incSim = 0.01;
+    }else{
+      incSim = this.parseInput(this.inclination);
     }
 
     this.isShownResults = true;
 
+    var consSim = this.parseInput(this.consumption);
+    var areaSim = this.parseInput(this.area);
+    var numSim = this.parseInput(this.numModels);
+
     var data: simulatorData = {
       panelId:this.panelSelectedId,
       cityId:this.cityFetched.city.id,
-      cons:this.consumption,
-      inc:this.inclination,
-      ori:this.orientation,
-      areaRequest:this.area,
-      numModels:this.numModels
+      cons:consSim,
+      inc:incSim,
+      ori:oriSim,
+      areaRequest:areaSim,
+      numModels:numSim
     }
 
-    
+    console.log(this.consumption);
+    console.log(data);
 
     this.simulateService.simulate(data).subscribe((response) => {
 
@@ -404,7 +422,7 @@ export class SimulatorComponent implements OnInit {
     
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     
-    let annualConsumption= this.consumption
+    let annualConsumption= this.parseInput(this.consumption);
     var consumption= [annualConsumption/12,annualConsumption/12,annualConsumption/12,annualConsumption/12,annualConsumption/12,annualConsumption/12,annualConsumption/12,annualConsumption/12,annualConsumption/12,annualConsumption/12,annualConsumption/12,annualConsumption/12]
 
     console.log("ASDASD")
@@ -489,6 +507,18 @@ export class SimulatorComponent implements OnInit {
 
   }
 
+  parseInput(obj:number): number {
+
+    if(obj!=null){
+      let objString =  obj.toString();
+    var objToSimulate = parseFloat( objString.replace(/,/g, '.'));
+    return objToSimulate;
+    }
+  
+    return obj;
+  
+  }
+  
 
 
   citiesAndStates = {
@@ -6221,3 +6251,4 @@ export class SimulatorComponent implements OnInit {
 
 
 }
+

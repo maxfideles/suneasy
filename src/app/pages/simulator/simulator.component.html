@@ -39,13 +39,13 @@
 
             <label>
                 <span>Orientation</span>
-                <input class="input"  type="text" placeholder="0°" [(ngModel)]="orientation" >
+                <input class="input"  type="number" placeholder="0°" [(ngModel)]="orientation" >
             </label>
     
     
             <label>
                 <span>Inclination</span>
-                <input class="input"  type="text" placeholder="0°" [(ngModel)]="inclination" >
+                <input class="input"  type="number" placeholder="0°" [(ngModel)]="inclination" >
             </label>
 
         </div>
@@ -70,17 +70,17 @@
 
             <label>
                 <span>Annual consumption</span>
-                <input class="input" name="con" type="text" placeholder="kWh" [(ngModel)]="consumption">
+                <input class="input" name="con" type="number" placeholder="kWh" [(ngModel)]="consumption">
             </label>
 
             <label *ngIf="isAreaShown==true">
                 <span>Min. Area</span>
-                <input class="input" name="con" type="text" placeholder="m²" [(ngModel)]="area">
+                <input class="input" name="con" type="number" placeholder="m²" [(ngModel)]="area">
             </label>
 
             <label *ngIf="isNumModelsShown==true">
                 <span>N. Panels</span>
-                <input class="input" name="con" type="text" placeholder="" [(ngModel)]="numModels">
+                <input class="input" name="con" type="number" placeholder="" [(ngModel)]="numModels">
             </label>
             
             

@@ -22,6 +22,8 @@ import { InverterCardComponent } from './pages/home/inverter-card/inverter-card.
 import { SimulatorComponent } from './pages/simulator/simulator.component'
 import  { FormsModule } from '@angular/forms';
 import { ResultsDetailedComponent } from './pages/simulator/results-detailed/results-detailed.component'
+import {  NgxMaskModule } from 'ngx-mask';
+
 
 @NgModule({
   declarations: [
@@ -47,6 +49,7 @@ import { ResultsDetailedComponent } from './pages/simulator/results-detailed/res
   imports: [
     BrowserModule,
     AppRoutingModule,
+    NgxMaskModule,
     RouterModule.forRoot([
       {path:'home', component: HomeComponent},
       {path:'panels', component: PanelsComponent},
