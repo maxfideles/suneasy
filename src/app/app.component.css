@@ -44,7 +44,13 @@ padding: 1rem;
 img{
     width: 30px;
     margin-right: 0.5rem;
+    filter: grayscale(100%);
 }
+
+img:hover{
+    filter: grayscale(0%);
+}
+
 
 @media(max-width: 425px){
     span{
