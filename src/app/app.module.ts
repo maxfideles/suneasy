@@ -23,6 +23,7 @@ import { SimulatorComponent } from './pages/simulator/simulator.component'
 import  { FormsModule } from '@angular/forms';
 import { ResultsDetailedComponent } from './pages/simulator/results-detailed/results-detailed.component'
 import {  NgxMaskModule } from 'ngx-mask';
+import { SimulatorWebComponent } from './pages/home/simulator-web/simulator-web.component';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import {  NgxMaskModule } from 'ngx-mask';
     SimulatorCardComponent,
     InverterCardComponent,
     SimulatorComponent,
-    ResultsDetailedComponent
+    ResultsDetailedComponent,
+    SimulatorWebComponent
   ],
   imports: [
     BrowserModule,
