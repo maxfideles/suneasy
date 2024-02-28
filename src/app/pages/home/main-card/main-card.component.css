@@ -27,8 +27,12 @@ img{
 .text{
     display: flex;
     flex-direction: column;
-    margin-left: 1.5rem;
+    margin-left: 5rem;
 
+}
+
+h1{
+    font-size: 3rem;
 }
 
 h2{
@@ -37,4 +41,28 @@ h2{
 
 span{
     color: #238636;
+}
+
+@media (max-width: 375px){
+    h1{
+        font-size: .8rem;
+    }
+    h2{
+        font-size: 0.7rem;
+    }
+    .text{
+        margin-left: 1rem;
+    }
+}
+
+@media (min-width:375px) and (max-width: 580px){
+    h1{
+        font-size: 1.5rem;
+    }
+    h2{
+        font-size: 1.3rem;
+    }
+    .text{
+        margin-left: 1.5rem;
+    }
 }

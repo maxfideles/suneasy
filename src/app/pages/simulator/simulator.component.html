@@ -1,49 +1,111 @@
 <div class="simulator-container">
-    <h1>Simulator</h1>
+    <h1 style="margin: 2rem 0 2rem;">Simulator</h1>
     
-    <div class="frame-simulator">
+    
 
         
-        <div class="cities_sortbox">
+    <details open>
+                    <summary>Location</summary>
 
-            <select (change)="getCities(sel.value)"  #sel class="dropdown">
-                <option *ngFor="let i of states">{{i.nome}}</option>
-            </select>
-            
-            <select (change)="selectCity(sela.value)"#sela class="dropdown">
-                <option *ngFor="let i of cities">{{i}}</option>
-            </select>
-            
-        </div>
-        
-        <div class="panels_sortbox">
+                    <div class="location">
 
+                        <select (change)="getCities(sel.value)"  #sel class="dropdown">
+                            <option value="" selected disabled hidden>State</option>
+                            <option *ngFor="let i of states">{{i.nome}}</option>
+                        </select>
+                        
+                        <select (change)="selectCity(sela.value)"#sela class="dropdown">
+                            <option value="" selected disabled hidden>City</option>
+                            <option *ngFor="let i of cities">{{i}}</option>
+                        </select>
+
+                    </div>
+
+    </details>
+            
+    <details>    
+        <summary>PV modules</summary>
+
+        <div class="pvmodules">
             <select (change)="filterPanels(pan.value)" #pan class="dropdown">
-                <option selected=""></option>
-                <option *ngFor="let info of panels;let i =index" [value]="i">{{info.manufacturer}}</option>
+                <option value="" selected disabled hidden>Manufacturer</option>
+                <option *ngFor="let info of panelManufactories;let i =index" [value]="info.id">{{info.manufacturer}}</option>
             </select>
             
             <select (change)="selectPanel(panMod.value)"#panMod class="dropdown">
+                <option value="" selected disabled hidden>Model</option>
                 <option *ngFor="let info of panelInfo;" [value]="info.id">{{info.name}}</option>
             </select>
+
+            <label>
+                <span>Orientation</span>
+                <input class="input"  type="text" placeholder="0°" [(ngModel)]="orientation" >
+            </label>
+    
+    
+            <label>
+                <span>Inclination</span>
+                <input class="input"  type="text" placeholder="0°" [(ngModel)]="inclination" >
+            </label>
+
+        </div>
+            
+        
+    </details>
+
+    <details>
+
+        <summary>Simulation parameters</summary>
+
+        <div class="simulationparam">
+
+            <label>
+                <span style="margin-bottom: 0;">Simulate by</span>
+                <select (change)="simulateBy(sim.value)" #sim class="dropdown">
+                    <option value="1" selected>Consumption</option>
+                    <option value="2">Area</option>
+                    <option value="3">N. panels</option>
+                </select>
+            </label>
+
+            <label>
+                <span>Annual consumption</span>
+                <input class="input" name="con" type="text" placeholder="kWh" [(ngModel)]="consumption">
+            </label>
+
+            <label *ngIf="isAreaShown==true">
+                <span>Min. Area</span>
+                <input class="input" name="con" type="text" placeholder="m²" [(ngModel)]="area">
+            </label>
+
+            <label *ngIf="isNumModelsShown==true">
+                <span>N. Panels</span>
+                <input class="input" name="con" type="text" placeholder="" [(ngModel)]="numModels">
+            </label>
+            
             
         </div>
 
-        <div class="install-sortbox">
-            <input class="input" type="text" placeholder="Ann. Cons. kWh" (keyup)="con($event)">
-            <input class="input"  type="text" placeholder="Orientation" (keyup)="ori($event)">
-            <input class="input"  type="text" placeholder="Inclination" (keyup)="inc($event)">
-        </div>
+    </details>
+
 
         <div class="simulator_button">
             <button type="submit" (click)="simulateSystem()">Simulate</button>
         </div>
 
                 
-    </div>
+    
 
-    <div class="canva">
-        <canvas  id="MyChart" >{{ chart }}</canvas>
-    </div>
+        <details *ngIf="isShownResults == true" open>
+            <summary>Results</summary>
+            <div class="canva">
+                <canvas  id="MyChart" >{{ chart }}</canvas>
+            </div>
+
+            <div class="detailsres">
+                <app-results-detailed [resultInfo]="responseSimulation" ></app-results-detailed>
+            </div>
+
+        </details>
 
 </div>

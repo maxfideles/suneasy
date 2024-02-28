@@ -20,6 +20,8 @@ import { IrradCardComponent } from './pages/home/irrad-card/irrad-card.component
 import { SimulatorCardComponent } from './pages/home/simulator-card/simulator-card.component';
 import { InverterCardComponent } from './pages/home/inverter-card/inverter-card.component';
 import { SimulatorComponent } from './pages/simulator/simulator.component'
+import  { FormsModule } from '@angular/forms';
+import { ResultsDetailedComponent } from './pages/simulator/results-detailed/results-detailed.component'
 
 @NgModule({
   declarations: [
@@ -39,7 +41,8 @@ import { SimulatorComponent } from './pages/simulator/simulator.component'
     IrradCardComponent,
     SimulatorCardComponent,
     InverterCardComponent,
-    SimulatorComponent
+    SimulatorComponent,
+    ResultsDetailedComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +56,8 @@ import { SimulatorComponent } from './pages/simulator/simulator.component'
       {path:'', component:HomeComponent}
 
     ], {useHash:true}),
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

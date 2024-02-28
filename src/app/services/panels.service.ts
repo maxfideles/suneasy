@@ -42,8 +42,12 @@ export class PanelsService {
 
   }
 
-  getPanelModelsFromManufacturerId(id:number,page:number): Observable<PanelInfo[]>{
+  getPanelModelsFromManufacturerIdPaginated(id:number,page:number): Observable<PanelInfo[]>{
     return this.http.get<PanelInfo[]>(`${this.baseUrl}panels/id/${id}/pag?page=${page}&size=10`)
+  }
+
+  getPanelModelsFromManufacturerId(id:number): Observable<PanelInfo[]>{
+    return this.http.get<PanelInfo[]>(`${this.baseUrl}panels/id/${id}`)
   }
 
   getPanelManufactories(): Observable<any>{

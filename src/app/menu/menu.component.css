@@ -33,3 +33,27 @@ a{
     font-size: large;
     background: #010409;
 }
+
+
+@media (max-width:425px) and (min-width:375px) {
+
+    .menu-container{
+        justify-content: center;
+        flex-direction: column;
+    }
+    .logo{
+        margin-bottom: 0.5rem;
+    }
+
+}
+
+@media(max-width:375px){
+
+    .logo{
+        display: none;
+    }
+    .menu-container{
+        justify-content: center;
+    }
+
+}
