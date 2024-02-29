@@ -22,10 +22,12 @@
 <div class="cities_sortbox">
 
 <select (change)="getCities(sel.value)"  #sel class="dropdown">
+    <option value="" selected disabled hidden>State</option>
     <option *ngFor="let i of states">{{i.nome}}</option>
 </select>
 
 <select (change)="getCity(sela.value,stateSelected)"#sela class="dropdown">
+    <option value="" selected disabled hidden>City</option>
     <option *ngFor="let i of cities">{{i}}</option>
 </select>
 
@@ -46,8 +48,8 @@
         <canvas  id="MyChart" >{{ chart }}</canvas>
     </div>
 
-<div class="link">
-    <a href="http://labren.ccst.inpe.br/atlas_2017-en.html" target="_blank"><span>Data Source</span></a>
+<div style="margin: 3rem;">
+   
 </div>
 
 </div>
