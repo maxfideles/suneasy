@@ -42,7 +42,7 @@ a{
         flex-direction: column;
     }
     .logo{
-        margin-bottom: 0.5rem;
+        padding-bottom: 0.5rem;
     }
 
 }
