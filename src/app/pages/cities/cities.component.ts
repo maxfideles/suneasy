@@ -117,7 +117,7 @@ export class CitiesComponent implements OnInit {
     this.states = this.citiesAndStates.estados
     console.log(this.states)
     //this.getCity("itumbiara","goiás")
-    this.getCity("Distrito Federal","Brasília")
+    this.getCity("Brasília","Distrito Federal")
     this.windowSize()
     //setTimeout(()=>{this.createChart()},1000)
     
