@@ -29,8 +29,9 @@ img{
 
 }
 
-span{
+b{
     color: #238636;
+    
 }
 
 ul{
@@ -40,4 +41,18 @@ ul{
 
 li{
     padding: 0.5rem;
+}
+
+
+@media (max-width: 476px){
+    h1{
+        font-size: 1.5rem;
+    }
+    h2{
+        font-size: 1.2rem;
+    }
+
+    span{
+        font-size: 0.8rem;
+    }
 }

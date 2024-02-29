@@ -47,7 +47,6 @@ export class CitiesComponent implements OnInit {
 
   constructor(private service: CitiesService, private sanitizer:DomSanitizer, private nZone:NgZone) { 
 
-    this.cityFetched = {city:{temp: 32, lat: -29.6895,lon: -53.7923, name: "Santa Maria", state: "Rio Grande do Sul"}}
 
 
     if(window.innerWidth<=475){
@@ -118,6 +117,7 @@ export class CitiesComponent implements OnInit {
     this.states = this.citiesAndStates.estados
     console.log(this.states)
     this.getCity("itumbiara","goiás")
+    //this.getCity("Distrito Federal","Brasília")
     this.windowSize()
     //setTimeout(()=>{this.createChart()},1000)
     

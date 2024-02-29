@@ -37,6 +37,7 @@
 @media (max-width:330px){
     a{
         font-size: 10px;
+        font-weight: bold;
     }
     #home{
         display: inline-block;
