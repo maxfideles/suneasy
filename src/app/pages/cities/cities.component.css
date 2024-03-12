@@ -13,7 +13,9 @@
     margin-top: 2rem; 
     height: 300px;
     overflow: hidden;
+    filter: invert(90%) hue-rotate(190deg);
 }
+
 
 .dropdown{
     margin: auto;
