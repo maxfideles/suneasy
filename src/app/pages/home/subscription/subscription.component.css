@@ -1,0 +1,48 @@
+.subscription-container{
+    margin-top: 2rem;
+    display: flex;
+    width: 90%;
+}
+
+.button{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    margin: auto;
+}
+
+button{
+    color: white;
+    font-weight: bold;
+    background-color: #238636;
+    width: 100px;
+    height: 40px;
+    border-radius: 0.5rem;
+    border:#30363D solid 1px;
+    
+}
+
+button:hover{
+    
+    background-color: #2DA043;
+}
+
+button:active{
+    border-color: #7C8590;
+    background-color: #238636;
+}
+
+
+@media (max-width: 476px){
+    h1{
+        font-size: 1.5rem;
+    }
+    h2{
+        font-size: 1.2rem;
+    }
+
+    span{
+        font-size: 0.8rem;
+    }
+}
